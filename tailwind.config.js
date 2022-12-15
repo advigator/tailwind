@@ -2,6 +2,7 @@ module.exports = {
   content: [
     "./src/*.html",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -18,6 +19,12 @@ module.exports = {
           900: '#092017',
         },
       },
+      maxWidth: {
+        '8xl': '92rem',
+      },
+      fontFamily: {
+        'sans': '"Montserrat", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+      },
     },
   },
   plugins: [
@@ -26,4 +33,3 @@ module.exports = {
     // require('@tailwindcss/typography'),
   ]
 };
-  
