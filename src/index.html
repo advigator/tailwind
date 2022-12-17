@@ -32,8 +32,10 @@
           </div>
           <div class="flex flex-1 items-center justify-center xl:items-stretch xl:justify-start">
             <div class="flex flex-shrink-0 items-center">
-              <img class="block h-7 w-auto xl:hidden" src="https://dummyimage.com/120x30/ccc/ccc" alt="Advigator">
-              <img class="hidden h-7 w-auto xl:block" src="https://dummyimage.com/120x30/ccc/ccc" alt="Advigator">
+              <a href="/">
+                <img class="block h-7 w-auto xl:hidden" src="https://dummyimage.com/120x30/ccc/ccc" alt="Advigator">
+                <img class="hidden h-7 w-auto xl:block" src="https://dummyimage.com/120x30/ccc/ccc" alt="Advigator">
+              </a>
             </div>
             <div class="hidden xl:ml-8 xl:ml-14 xl:block">
               <div class="flex space-x-4">
@@ -181,9 +183,9 @@
     </header>
     <div class="bg-white dark:bg-green-900 border-b border-gray-50 dark:border-green-800">
       <div class="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8 py-5 xl:py-8">
-        <div class="md:flex items-center justify-between space-y-2 md:space-y-0">
+        <div class="lg:flex items-center justify-between space-y-2 lg:space-y-0">
           
-          <div class="flex rounded-xl hover:shadow group lg:min-w-[24rem]">
+          <div class="flex rounded-xl hover:shadow group lg:min-w-[20rem]">
             <div class="relative flex flex-grow items-stretch focus-within:z-10">
               <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4 text-gray-900 dark:text-gray-200">
@@ -211,42 +213,79 @@
             </span>
           </div>
           
-          <div x-data="{ dropdown: false }" class="flex space-y-2 sm:space-y-0 sm:space-x-4">
-            <div class="inline-flex rounded-xl hover:shadow group relative">
-              <button type="button" class="relative inline-flex items-center rounded-l-xl bg-gray-100 dark:bg-green-800 px-4 py-3 text-xs font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 focus:z-10 focus:outline-none">
-                <span class="mr-2">Categories:</span>
-                <span>All</span>
-              </button>
-              <div class="md:relative -ml-px block">
-                <button @click.prevent="dropdown = ! dropdown" type="button" class="md:relative inline-flex items-center rounded-r-xl px-2 py-3 text-xs font-semibold text-gray-700 bg-gray-100 dark:bg-green-800 dark:text-gray-200 group-hover:text-gray-200 group-hover:bg-green-700 dark:group-hover:text-gray-200 dark:group-hover:bg-green-700 focus:z-10 focus:outline-none" id="option-menu-button" aria-expanded="true" aria-haspopup="true">
-                  <span class="sr-only">Open options</span>
-                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-                  </svg>
+          <div class="flex space-x-4">
+            <div x-data="{ dropdown: false }" class="flex space-y-2 sm:space-y-0 sm:space-x-4">
+              <div class="inline-flex rounded-xl hover:shadow group relative">
+                <button type="button" class="relative inline-flex items-center rounded-l-xl bg-gray-100 dark:bg-green-800 px-4 py-3 text-xs font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 focus:z-10 focus:outline-none">
+                  <span class="mr-2">Categories:</span>
+                  <span>All</span>
                 </button>
-                <div x-show="dropdown"
-                  :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
-                  x-transition:enter="transition ease-out duration-100"
-                  x-transition:enter-start="transform opacity-0 scale-95"
-                  x-transition:enter-end="transform opacity-100 scale-100"
-                  x-transition:leave="transition ease-in duration-75"
-                  x-transition:leave-start="transform opacity-100 scale-100"
-                  x-transition:leave-end="transform opacity-0 scale-95"
-                  @click.outside="dropdown = false" class="absolute left-0 md:left-auto md:right-0 z-10 mt-2 -mr-1 w-56 origin-top-right rounded-xl bg-white dark:bg-green-800 shadow-lg focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
-                  <div class="py-1" role="none">
-                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-                    <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-0">Lorem ipsum</a>
-            
-                    <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-1">Lorem ipsum</a>
-            
-                    <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-2">Lorem ipsum</a>
+                <div class="md:relative -ml-px block">
+                  <button @click.prevent="dropdown = ! dropdown" type="button" class="md:relative inline-flex items-center rounded-r-xl px-2 py-3 text-xs font-semibold text-gray-700 bg-gray-100 dark:bg-green-800 dark:text-gray-200 group-hover:text-gray-200 group-hover:bg-green-700 dark:group-hover:text-gray-200 dark:group-hover:bg-green-700 focus:z-10 focus:outline-none" id="option-menu-button" aria-expanded="true" aria-haspopup="true">
+                    <span class="sr-only">Open options</span>
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                    </svg>
+                  </button>
+                  <div x-show="dropdown"
+                    :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                    x-transition:enter="transition ease-out duration-100"
+                    x-transition:enter-start="transform opacity-0 scale-95"
+                    x-transition:enter-end="transform opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="transform opacity-100 scale-100"
+                    x-transition:leave-end="transform opacity-0 scale-95"
+                    @click.outside="dropdown = false" class="absolute left-0 md:left-auto md:right-0 z-10 mt-2 -mr-1 w-56 origin-top-right rounded-xl bg-white dark:bg-green-800 shadow-lg focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                      <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                      <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-0">Lorem ipsum</a>
+              
+                      <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-1">Lorem ipsum</a>
+              
+                      <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-2">Lorem ipsum</a>
+                    </div>
                   </div>
                 </div>
               </div>
+  
             </div>
-
+            <div x-data="{ dropdown: false }" class="flex space-y-2 sm:space-y-0 sm:space-x-4">
+              <div class="inline-flex rounded-xl hover:shadow group relative">
+                <button type="button" class="relative inline-flex items-center rounded-l-xl bg-gray-100 dark:bg-green-800 px-4 py-3 text-xs font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 focus:z-10 focus:outline-none">
+                  <span class="mr-2">Brands:</span>
+                  <span>All</span>
+                </button>
+                <div class="md:relative -ml-px block">
+                  <button @click.prevent="dropdown = ! dropdown" type="button" class="md:relative inline-flex items-center rounded-r-xl px-2 py-3 text-xs font-semibold text-gray-700 bg-gray-100 dark:bg-green-800 dark:text-gray-200 group-hover:text-gray-200 group-hover:bg-green-700 dark:group-hover:text-gray-200 dark:group-hover:bg-green-700 focus:z-10 focus:outline-none" id="option-menu-button" aria-expanded="true" aria-haspopup="true">
+                    <span class="sr-only">Open options</span>
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                    </svg>
+                  </button>
+                  <div x-show="dropdown"
+                    :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                    x-transition:enter="transition ease-out duration-100"
+                    x-transition:enter-start="transform opacity-0 scale-95"
+                    x-transition:enter-end="transform opacity-100 scale-100"
+                    x-transition:leave="transition ease-in duration-75"
+                    x-transition:leave-start="transform opacity-100 scale-100"
+                    x-transition:leave-end="transform opacity-0 scale-95"
+                    @click.outside="dropdown = false" class="absolute left-0 md:left-auto md:right-0 z-10 mt-2 -mr-1 w-56 origin-top-right rounded-xl bg-white dark:bg-green-800 shadow-lg focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                      <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+                      <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-0">Lorem ipsum</a>
+              
+                      <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-1">Lorem ipsum</a>
+              
+                      <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-2">Lorem ipsum</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+            </div>
           </div>
-
+          
         </div>
       </div>
     </div>
@@ -256,16 +295,181 @@
     <div class="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8 py-5 xl:py-8">
       <ul role="list" class="space-y-6">
 
-        <li class="bg-gray-100 h-96">
-          
+        <li class="flex items-center items-stretch">
+          <div class="py-10">
+            <div class="bg-green-500 rounded-full w-1.5 h-full"></div>
+          </div>
+          <div class="px-4 sm:px-6 lg:px-8 flex-1">
+            <div class="md:flex justify-between space-y-4 md:space-y-0 md:space-x-8">
+              <div class="flex-1">
+                <h3 class="font-semibold text-lg text-gray-800 dark:text-gray-200 max-w-4xl">L’oréal Paris Revitalift Day Cream, Face Moisturiser With Spf 30, Refirms, Refines & Protects [50Ml] May Be A Second Row For The Title</h3>
+              </div>
+              <div class="flex-none">
+                <button class="bg-green-400 hover:bg-green-500 text-white font-medium text-sm px-5 py-3.5 rounded-xl" type="buton">Targeting (175)</button>
+              </div>
+            </div>
+            <div class="md:flex gap-6 lg:gap-8 mt-10">
+              <div class="flex-none">
+                <img src="https://dummyimage.com/200/ccc/ccc" alt="Lorem" class="w-24 h-auto">
+              </div>
+              <div class="flex-1">
+                
+                <div class="mt-10 sm:flex space-y-4 sm:space-y-0 sm:space-x-8 md:space-x-12">
+                  <div>
+                    <h5 class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">State: <span class="font-bold">Active</span></h5>
+                    <button x-data="{ state: true }" @click.prevent="state = ! state" type="button" class="bg-gray-100 dark:bg-green-800 border border-slate-200 dark:border-green-600 relative inline-flex h-10 w-20 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none" role="switch" aria-checked="false">
+                      <span class="sr-only">State</span>
+                      <span :class="{ 'translate-x-10 bg-green-500 dark:bg-green-400': state, 'translate-x-0 bg-white dark:bg-gray-300': !(state) }" aria-hidden="true" class="translate-x-0 pointer-events-none inline-block h-9 w-9 transform rounded-full shadow ring-0 transition duration-200 ease-in-out"></span>
+                    </button>
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">Daily budget</h5>
+                    <div>
+                      <div class="mt-1 flex rounded-xl border border-slate-200 dark:border-green-600">
+                        <span class="inline-flex items-center rounded-l-xl bg-gray-100 dark:bg-green-700 px-3 text-green-500 dark:text-green-300 text-base">$</span>
+                        <input type="text" name="value" id="value" value="120,00" class="block w-20 rounded-none py-2.5 rounded-r-xl font-semibold text-gray-700 bg-white dark:bg-green-800 dark:text-gray-200 dark:placeholder-gray-200 text-sm border-none focus:outline-none focus:border-0 focus:ring-0">
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">Target acos:</h5>
+                    <div x-data="{ dropdown: false }" class="flex space-y-2 sm:space-y-0 sm:space-x-4">
+                      <div class="inline-flex rounded-xl hover:shadow group relative border border-slate-200 dark:border-green-600">
+                        <button type="button" class="relative inline-flex items-center rounded-l-xl bg-gray-100 dark:bg-green-800 px-6 py-2.5 text-xs font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 focus:z-10 focus:outline-none">
+                          <span>30%</span>
+                        </button>
+                        <div class="md:relative -ml-px block">
+                          <button @click.prevent="dropdown = ! dropdown" type="button" class="md:relative inline-flex items-center rounded-r-xl px-2 py-2.5 text-xs font-semibold text-gray-700 bg-gray-100 dark:bg-green-800 dark:text-gray-200 group-hover:text-gray-200 group-hover:bg-green-700 dark:group-hover:text-gray-200 dark:group-hover:bg-green-700 focus:z-10 focus:outline-none" id="option-menu-button" aria-expanded="true" aria-haspopup="true">
+                            <span class="sr-only">Open options</span>
+                            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                            </svg>
+                          </button>
+                          <div x-show="dropdown"
+                            :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95"
+                            @click.outside="dropdown = false" class="absolute left-0 md:left-auto md:right-0 z-10 mt-2 -mr-1 w-36 origin-top-right rounded-xl bg-white dark:bg-green-800 shadow-lg focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                            <div class="py-1" role="none">
+                              <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-0">20%</a>
+                      
+                              <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-1">40%</a>
+                      
+                              <a href="#" class="text-gray-700 dark:text-gray-200 hover:text-green-500 dark:hover:text-green-300 block px-4 py-2.5 text-xs font-semibold" role="menuitem" tabindex="-1" id="option-menu-item-2">50%</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="mt-10">
+                  <button x-data="" @click="$tooltip('Lorem ipsum dolorem')" type="button" class="flex items-center space-x-2">
+                    <h5 class="font-semibold text-xs text-gray-700 dark:text-gray-200">Campaigns</h5> 
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-gray-700 dark:text-gray-200">
+                      <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
+                    </svg>
+                  </button>
+                  <div class="mt-2 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <div>
+                      <div class="relative flex items-start rounded-xl bg-gray-100 dark:bg-green-800 p-5">
+                        <div class="flex h-5 items-center">
+                          <input id="products" aria-describedby="products-description" name="products" type="checkbox" class="h-4 w-4 rounded border-2 border-gray-700 dark:border-green-600 text-gray-700 dark:text-green-600 focus:ring-0 dark:bg-green-600">
+                        </div>
+                        <div class="ml-2 text-sm">
+                          <label for="products" class="font-medium text-gray-700 dark:text-gray-200">Sponsored Products</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="relative flex items-start rounded-xl bg-gray-100 dark:bg-green-800 p-5">
+                        <div class="flex h-5 items-center">
+                          <input id="display" aria-describedby="display-description" name="display" type="checkbox" class="h-4 w-4 rounded border-2 border-gray-700 dark:border-green-600 text-gray-700 dark:text-green-600 focus:ring-0 dark:bg-green-600">
+                        </div>
+                        <div class="ml-2 text-sm">
+                          <label for="display" class="font-medium text-gray-700 dark:text-gray-200">Sponsored Display</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="relative flex items-start rounded-xl bg-gray-100 dark:bg-green-800 p-5">
+                        <div class="flex h-5 items-center">
+                          <input id="brand" aria-describedby="brand-description" name="brand" type="checkbox" class="h-4 w-4 rounded border-2 border-gray-700 dark:border-green-600 text-gray-700 dark:text-green-600 focus:ring-0 dark:bg-green-600">
+                        </div>
+                        <div class="ml-2 text-sm">
+                          <label for="brand" class="font-medium text-gray-700 dark:text-gray-200">Sponsored Brand</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div x-data="{ select: false }" class="rounded-xl bg-gray-100 dark:bg-green-800 p-5">
+                        <div class="relative flex items-start">
+                          <div class="flex h-5 items-center">
+                            <input x-model="select" @click="select = ! select" id="video" aria-describedby="video-description" name="video" type="checkbox" class="h-4 w-4 rounded border-2 border-gray-700 dark:border-green-600 text-gray-700 dark:text-green-600 focus:ring-0 dark:bg-green-600">
+                          </div>
+                          <div class="ml-2 text-sm">
+                            <label for="video" class="font-medium text-gray-700 dark:text-gray-200">Sponsored Brand Video</label>
+                          </div>
+                        </div>
+                        <div x-show="select"
+                          :class="{ 'block': select, 'hidden': !(select) }"
+                          x-transition:enter="transition ease-out duration-100"
+                          x-transition:enter-start="transform opacity-0 scale-95"
+                          x-transition:enter-end="transform opacity-100 scale-100"
+                          x-transition:leave="transition ease-in duration-75"
+                          x-transition:leave-start="transform opacity-100 scale-100"
+                          x-transition:leave-end="transform opacity-0 scale-95"
+                          class="pt-5 flex justify-center">
+                          <button class="bg-green-400 hover:bg-green-500 text-white font-medium text-sm px-5 py-2.5 rounded-xl" type="buton">Upload Video</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                  
+                </div>
+                
+                <div class="rounded-xl bg-yellow-50 p-4 mt-10">
+                  <div class="flex">
+                    <div class="flex-shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 text-yellow-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+                      </svg>
+                    </div>
+                    <div class="ml-3">
+                      <h3 class="text-sm font-medium text-yellow-800">Attention needed</h3>
+                      <div class="mt-2 text-sm text-yellow-700">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid pariatur, ipsum similique veniam quo totam eius aperiam dolorum.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="">
+                
+              </div>
+            </div>
+          </div>
         </li>
-        <li class="bg-gray-100 h-96">
-          
-        </li>
+        
 
       </ul>
     </div>
   </main>
-    
+  
+  <footer>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script>
+      document.addEventListener('alpine:init', () => {
+        Alpine.magic('tooltip', el => message => { let instance = tippy(el, { content: message, trigger: 'manual' }); instance.show(); setTimeout(() => { instance.hide(); setTimeout(() => instance.destroy(), 150); }, 2000) })
+        Alpine.directive('tooltip', (el, { expression }) => { tippy(el, { content: expression }) })
+      });
+    </script>
+  </footer>
   </body>
 </html>
