@@ -1,4 +1,5 @@
 module.exports = {
+  mode: 'jit',
   content: [
     "./src/*.html",
   ],
@@ -16,11 +17,17 @@ module.exports = {
           600: '#1E7150',
           700: '#155139',
           800: '#0D3022',
-          900: '#092017',
+          900: '#092017',          
         },
+        black:{
+          100:'#26292C',
+        },
+        grey:{
+          grey100: '#F4F4F4',
+        }
       },
       maxWidth: {
-        '8xl': '92rem',
+        '8xl': '92rem',       
       },
       fontFamily: {
         'sans': '"Montserrat", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',

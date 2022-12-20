@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en" :class="{ 'dark': dark }" x-data="{ dark: $persist(false) }">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advigator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body>
+  <div class="sticky top-0 z-10">
+    <nav class="bg-gray-100 dark:bg-green-900 border-b border-gray-200 dark:border-green-800" x-data="{ mobile: false }"
+      @click.outside="mobile = false">
+      <div class="mx-auto max-w-8xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex py-5 xl:pt-8 xl:pb-0 items-center justify-between">
+          <div class="absolute inset-y-0 left-0 flex items-center xl:hidden">
+            <!-- Mobile menu button-->
+            <button @click="mobile = ! mobile" type="button"
+              class="inline-flex items-center justify-center rounded-md p-2 text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-green-800 focus:outline-none"
+              aria-controls="mobile-menu" aria-expanded="false">
+              <span class="sr-only">Open main menu</span>
+              <svg :class="{ 'hidden': mobile, 'block': !(mobile) }" class="block h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>
+              <svg :class="{ 'block': mobile, 'hidden': !(mobile) }" class="hidden h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-1 items-center justify-center xl:items-stretch xl:justify-start">
+            <div class="flex flex-shrink-0 items-center">
+              <a href="/">
+                <img class="block h-7 w-auto xl:hidden" src="https://dummyimage.com/120x30/ccc/ccc" alt="Advigator" />
+                <img class="hidden h-7 w-auto xl:block" src="https://dummyimage.com/120x30/ccc/ccc" alt="Advigator" />
+              </a>
+            </div>
+            <div class="hidden xl:ml-8 xl:ml-14 xl:block">
+              <div class="flex space-x-4">
+                <!-- Current -->
+                <a href="#"
+                  class="bg-green-500 text-white px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center"
+                  aria-current="page">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5 mr-1">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46" />
+                  </svg>
+                  <span>Campaigns</span>
+                </a>
+                <a href="#"
+                  class="relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5 mr-1">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+                  </svg>
+                  <span>Analytics</span>
+                  <span
+                    class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+                </a>
+                <a href="#"
+                  class="relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5 mr-1">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+                  </svg>
+                  <span>Bulk operations</span>
+                  <span
+                    class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+                </a>
+                <a href="#"
+                  class="relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5 mr-1">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Settings</span>
+                  <span
+                    class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+                </a>
+                <a href="#"
+                  class="relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5 mr-1">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                  <span>Guides</span>
+                  <span
+                    class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+                </a>
+                <a href="#"
+                  class="relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5 mr-1">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                  </svg>
+                  <span>Support</span>
+                  <span
+                    class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="absolute inset-y-0 right-0 flex items-center justify-end pr-2 xl:static xl:inset-auto xl:ml-6 xl:pr-0">
+            <a href="#"
+              class="hidden xl:flex relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 text-sm font-medium items-center transition">
+              <span>Sign in</span>
+              <span
+                class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+            </a>
+            <!-- Account dropdown -->
+            <!-- <div x-data="{ dropdown: false }" class="relative ml-3"><div><button @click.prevent="dropdown = ! dropdown" type="button" class="flex items-center space-x-3 group" id="user-menu-button" aria-expanded="false" aria-haspopup="true"><img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt=""><span class="text-sm text-gray-300 group-hover:text-white">Account</span></button></div><div x-show="dropdown"
+                :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95"
+                @click.outside="dropdown = false"
+                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1"><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:text-green-500" role="menuitem" tabindex="-1" id="user-menu-item-0">User settings</a><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:text-green-500" role="menuitem" tabindex="-1" id="user-menu-item-1">Billing</a><a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:text-green-500" role="menuitem" tabindex="-1" id="user-menu-item-2">Logout</a></div></div> -->
+            <button @click.prevent="dark = ! dark" type="button" role="switch"
+              class="relative ml-6 xl:ml-10 inline-flex items-center w-12 rounded-full py-0.5 transition bg-white dark:bg-green-800 border border-yellow-500 dark:border-green-600 text-yellow-500 dark:text-green-600">
+              <span :class="{ 'translate-x-6': dark, 'translate-x-0.5': !(dark) }"
+                class="bg-yellow-500 dark:bg-green-600 h-5 w-5 rounded-full transition shadow-md"
+                aria-hidden="true"></span>
+              <svg :class="{ 'block': dark, 'hidden': !(dark) }" class="h-4 w-4 absolute left-1" width="20" height="20"
+                viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M15.725 8.64175C15.1 4.67508 11.5583 1.68341 7.54163 1.66675C7.13329 1.66675 6.73329 1.69175 6.34163 1.75008C5.92496 1.80841 5.84163 2.35841 6.22496 2.55008C8.95829 3.90841 10.8333 6.73342 10.8333 10.0001C10.8333 13.2667 8.95829 16.0917 6.22496 17.4584C5.84996 17.6501 5.92496 18.2001 6.34163 18.2584C6.73329 18.3084 7.13329 18.3334 7.54163 18.3334C11.5583 18.3167 15.1 15.3251 15.725 11.3584C15.8 10.9001 15.8166 10.4501 15.8166 10.0001C15.8166 9.55008 15.8 9.10008 15.725 8.64175Z"
+                  fill="currentColor" />
+              </svg>
+              <svg :class="{ 'hidden': dark, 'block': !(dark) }" xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 absolute right-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile menu, show/hide based on menu state. -->
+      <div x-show="mobile" :class="{ 'block': mobile, 'hidden': !(mobile) }" x-transition:enter="duration-200 ease-out"
+        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="duration-100 ease-in" x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95" class="xl:hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pt-2 pb-3">
+          <!-- Current: "bg-green-800 text-white", Default: "text-gray-300 hover:bg-green-700 hover:text-white" -->
+          <a href="#"
+            class="bg-gray-200 dark:bg-green-800 text-gray-800 dark:text-white block px-3 py-2.5 rounded-md text-base font-medium"
+            aria-current="page">Campaigns</a>
+          <a href="#"
+            class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Analytics</a>
+          <a href="#"
+            class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Bulk
+            operations</a>
+          <a href="#"
+            class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Settings</a>
+          <a href="#"
+            class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Guides</a>
+          <a href="#"
+            class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Support</a>
+          <a href="#"
+            class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Sign
+            in</a>
+        </div>
+      </div>
+    </nav>
+    <header class="bg-white dark:bg-green-900 border-b !border-b-grey-grey100 border-opacity-90">
+      <div class="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+        <div class="sm:flex items-center justify-between pt-5">
+          <div class="flex items-center">
+            <div
+              class="flex items-baseline sm:px-6 flex-wrap px-2 sm:pt-5 pt-3 pb-3 transition-all duration-300 hover:cursor-pointer hover:bg-[#F4F4F4] gap-x-4 border-transparent rounded-tl-[10px] rounded-tr-[10px]">
+              <img class="h-5 sm:w-auto w-6" src="/img/flag.png" alt="Fit Fitaly" />
+              <div class="flex flex-col">
+                <span
+                  class="font-semibold sm:text-3xl text-lg text-black-100 relative opacity-90 sm:after:w-[127px] after:w-[69px] after:h-[2px] after:bg-black-100 after:bg-opacity-80 after:left-0 after:bottom-[1px] sm:after:-bottom-[1px] after:absolute after: border-black-100">Fit
+                  Fitaly</span>
+                <span class="sm:text-base text-xs text-black-100 font-semibold">All campaigns</span>
+              </div>
+            </div>
+            <div class="px-[10px]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11.155" height="20" viewBox="0 0 11.155 20">
+                <path id="arrow_forward_ios_FILL0_wght400_GRAD0_opsz48"
+                  d="M13.525,24.411a1.1,1.1,0,0,1-.3-.731.956.956,0,0,1,.3-.731l8.219-8.219L13.525,6.512a1.02,1.02,0,0,1-.3-.718,1.071,1.071,0,0,1,1.018-1.07.971.971,0,0,1,.744.3l9.158,9.158a.8.8,0,0,1,.183.261.815.815,0,0,1,0,.574.8.8,0,0,1-.183.261l-9.158,9.158a.974.974,0,0,1-.718.287A1.016,1.016,0,0,1,13.525,24.411Z"
+                  transform="translate(-13.224 -4.724)" fill="#26292c" opacity="0.8" />
+              </svg>
+            </div>
+            <div
+              class="flex flex-col sm:px-6 px-2 sm:pt-5 pt-3 pb-3 bg-[#F4F4F4] border-transparent rounded-tl-[10px] rounded-tr-[10px]">
+              <span
+                class="font-semibold sm:text-3xl text-lg text-black-100 relative opacity-90 sm:after:w-[137px] after:w-[77px] after:h-[2px] after:bg-black-100 after:bg-opacity-80 after:left-0 after:bottom-[1px] sm:after:-bottom-[1px] after:absolute after: border-black-100">Targeting</span>
+              <span class="sm:text-base text-xs text-black-100 opacity-90 font-semibold">One-piece Drop…</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+  <!-- backyard section Start -->
+  <section class="bg-white dark:bg-green-900 border-b !border-b-grey-grey100 py-2">
+    <div class="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8">
+      <div class="sm:flex gap-x-10 items-center">
+        <div>
+          <img src="https://images-eu.ssl-images-amazon.com/images/I/417uQxouhoL.jpg" alt="" class="max-w-[150px] w-full" />
+        </div>
+        <div class="sm:mt-0 mt-5">
+          <h3 class="md:text-xl text-lg font-semibold text-black-100 max-w-4xl"> One-Piece Drop Ship Backyard
+            Collapsible Golf Hitting Net Indoor Chipping Practice Target Training Aids May Be A Second Row For The Title
+          </h3>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- backyard section End -->
+  <div class="bg-white dark:bg-green-900">
+    <div class="mx-auto max-w-8xl px-4 sm:px-6 lg:px-8 py-5 xl:py-8">
+      <div class="flex items-center flex-wrap justify-between gap-4">
+        <div class="lg:w-auto sm:w-[45%]">
+          <span class="isolate inline-flex rounded-xl shadow-sm">
+            <button type="button"
+              class="relative flex-wrap flex items-center rounded-l-xl bg-green-700 px-4 py-3.5 text-xs font-semibold text-gray-200 hover:bg-green-600 focus:z-10 focus:outline-none">
+              Keywords &nbsp; <span> (122)</span>
+            </button>
+            <button type="button"
+              class="relative inline-flex flex-wrap items-center bg-gray-100 dark:bg-green-800 px-4 py-3.5 text-xs font-semibold text-gray-700 dark:text-gray-200 hover:bg-[#436a5b40] focus:z-10 focus:outline-none">
+              Products &nbsp; <span>(19)</span>
+            </button>
+            <button type="button"
+              class="relative inline-flex items-center rounded-r-xl bg-gray-100 dark:bg-green-800 px-4 py-3.5 text-xs font-semibold text-gray-700 dark:text-gray-200 hover:bg-[#436a5b40] focus:z-10 focus:outline-none">
+              Auto </button>
+          </span>
+        </div>
+        <div class="flex rounded-xl hover:shadow group lg:min-w-[20rem] max-w-[474px] lg:w-auto sm:w-[48%] w-full">
+          <div class="relative flex flex-grow items-stretch focus-within:z-10">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" class="h-4 w-4 text-gray-900 dark:text-gray-200">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+            </div>
+            <input type="text" name="search"
+              class="block w-full border-0 rounded-none font-semibold rounded-l-xl pl-10 bg-gray-100 dark:bg-green-800 dark:text-gray-200 dark:placeholder-gray-200 text-xs focus:outline-none focus:border-0 focus:ring-0"
+              placeholder="Search" />
+          </div>
+          <button type="button"
+            class="relative -ml-px inline-flex items-center space-x-2 rounded-r-xl bg-gray-100 dark:bg-green-800 px-4 py-3.5 text-xs font-semibold text-gray-700 dark:text-gray-200 group-hover:text-gray-200 group-hover:bg-green-700 dark:group-hover:text-gray-200 dark:group-hover:bg-green-700">
+            <span class="text-[#448369] group-hover:text-white">Cerca</span>
+          </button>
+        </div>
+        <div>
+          <div class="flex flex-wrap gap-[18px] xl:mr-10 lg:w-auto w-full">
+            <div class="md:relative" x-data="{ dropdown: false }">
+              <button @click.prevent="dropdown = ! dropdown" type="button"
+                class="flex items-center gap-x-2 focus:z-10 focus:outline-none" id="option-menu-button"
+                aria-expanded="true" aria-haspopup="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="3" viewBox="0 0 18 3">
+                  <path id="remove_FILL0_wght400_GRAD0_opsz48"
+                    d="M10.964,25.5a.8.8,0,0,1-.691-.425,2.251,2.251,0,0,1,0-2.15.8.8,0,0,1,.691-.425H27.036a.8.8,0,0,1,.691.425,2.251,2.251,0,0,1,0,2.15.8.8,0,0,1-.691.425Z"
+                    transform="translate(-10 -22.5)" fill="#26292c" opacity="0.8" />
+                </svg>
+                <span class="sm:text-sm text-xs font-semibold text-black-100 opacity-90">Negative</span>
+              </button>
+              <div x-show="dropdown" :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95" @click.outside="dropdown = false"
+                class="bg-[#F4F4F4] absolute md:left-0 lg:left-auto lg:right-0 z-20  mt-2 -mr-1 w-56 origin-top-right rounded-xl max-w-[185px] dark:bg-green-800 shadow-lg focus:outline-none"
+                role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                <div class="py-1" role="none">
+                  <a href="#"
+                    class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                    role="menuitem" tabindex="-1" id="option-menu-item-0">Negative Keywords</a>
+                  <a href="#"
+                    class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                    role="menuitem" tabindex="-1" id="option-menu-item-0">Negative product pages</a>                  
+                </div>
+              </div>
+            </div>
+            <div class="md:relative" x-data="{ dropdown: false }">
+              <button @click.prevent="dropdown = ! dropdown" type="button"
+                class="flex items-center gap-x-2 focus:z-10 focus:outline-none" id="option-menu-button"
+                aria-expanded="true" aria-haspopup="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18.041" viewBox="0 0 18 18.041">
+                  <path id="temp_preferences_custom_FILL0_wght400_GRAD0_opsz48"
+                    d="M16.99,7.807l-.881-2.048-2.13-.942,2.13-.922L16.99,1.95,17.87,3.9,20,4.817l-2.13.942Zm0,12.184-.881-1.966L13.98,17.1l2.13-.922.881-2.068.881,2.068L20,17.1l-2.13.922ZM8,16.837,6.116,12.8,2,10.96,6.116,9.117,8,5.1,9.9,9.117,14,10.96,9.9,12.8Zm0-3.031.983-1.966,2.007-.881L8.983,10.08,8,8.114,7.038,10.08,5.01,10.96l2.027.881ZM8,10.96Z"
+                    transform="translate(-2 -1.95)" fill="#26292c" opacity="0.8" />
+                </svg>
+                <span class="sm:text-sm text-xs font-semibold text-black-100 opacity-90">Custom</span>
+              </button>
+              <div x-show="dropdown" :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95" @click.outside="dropdown = false"
+                class="bg-[#F4F4F4] absolute md:left-0 lg:left-auto lg:right-0 z-20 mt-2 -mr-1 w-56 max-w-[185px] origin-top-right rounded-xl dark:bg-green-800 shadow-lg focus:outline-none"
+                role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                <div class="py-1" role="none">
+                  <a href="#"
+                    class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                    role="menuitem" tabindex="-1" id="option-menu-item-0">Custom Keywords</a>
+                  <a href="#"
+                    class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                    role="menuitem" tabindex="-1" id="option-menu-item-0">Custom product pages</a>                  
+                </div>
+              </div>
+            </div>
+            <div class="md:relative" x-data="{ dropdown: false }">
+              <button @click.prevent="dropdown = ! dropdown" type="button"
+                class="flex items-center gap-x-2 focus:z-10 focus:outline-none:" id="option-menu-button"
+                aria-expanded="true" aria-haspopup="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                  <path id="tune_FILL0_wght400_GRAD0_opsz48"
+                    d="M6.75,21.95a.75.75,0,1,1,0-1.5h4.675a.75.75,0,1,1,0,1.5Zm0-12.4a.75.75,0,1,1,0-1.5h8.825a.75.75,0,1,1,0,1.5ZM14.425,24a.727.727,0,0,1-.75-.75V19.125a.75.75,0,1,1,1.5,0V20.45H23.25a.75.75,0,1,1,0,1.5H15.175v1.3a.727.727,0,0,1-.75.75Zm-3-6.2a.727.727,0,0,1-.75-.75v-1.3H6.75a.75.75,0,1,1,0-1.5h3.925V12.9a.75.75,0,1,1,1.5,0v4.15a.727.727,0,0,1-.75.75Zm3-2.05a.75.75,0,1,1,0-1.5H23.25a.75.75,0,1,1,0,1.5Zm4.15-4.125a.727.727,0,0,1-.75-.75V6.75a.75.75,0,1,1,1.5,0v1.3H23.25a.75.75,0,1,1,0,1.5H19.325v1.325a.727.727,0,0,1-.75.75Z"
+                    transform="translate(-6 -6)" fill="#26292c" opacity="0.8" />
+                </svg>
+                <span class="sm:text-sm text-xs font-semibold text-black-100 opacity-90">Settings</span>
+              </button>
+              <div x-show="dropdown" :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95" @click.outside="dropdown = false"
+                class="bg-[#F4F4F4] absolute left-[140px] md:left-auto md:right-0 z-20 mt-2 -mr-1 w-56 origin-top-right rounded-xl  max-w-[160px] dark:bg-green-800 shadow-lg focus:outline-none"
+                role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                <div class="py-1" role="none">
+                  <a href="#"
+                    class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                    role="menuitem" tabindex="-1" id="option-menu-item-0">Targeting Size</a>
+                  <a href="#"
+                    class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                    role="menuitem" tabindex="-1" id="option-menu-item-0">Match Type</a>
+                  <a href="#"
+                    class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                    role="menuitem" tabindex="-1" id="option-menu-item-0">Target Type</a>
+                    <a href="#"
+                    class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                    role="menuitem" tabindex="-1" id="option-menu-item-0">Keywords Research</a>
+                    <a href="#"
+                    class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                    role="menuitem" tabindex="-1" id="option-menu-item-0">Campaign Data</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- table start -->
+      <div class="overflow-x-auto mt-8">
+        <div class="inline-block min-w-full align-middle">
+          <div class="overflow-hidden border border-[#262C281A] rounded-tl-[15px] rounded-tr-[15px] overflow-y-auto h-full max-h-[500px]">
+            <table class="lg:min-w-full w-[1350px] divide-y border-collapse">
+              <thead class="bg-white shadow-md relative" style="z-index: 1;">
+                <tr>
+                  <th class="pl-12 lg:py-7 py-5 pr-[30px] sticky top-0 bg-white" scope="col">
+                    <div class="flex items-center gap-x-2">
+                      <span class="text-[15px] font-medium text-black-100">Keyword</span>
+                      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="directional" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="drop-down" fill="#26292C">
+                            <polygon id="Shape" points="5 8 12 16 19 8" class="opacity-80"></polygon>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                  </th>
+                  <th class="lg:py-7 py-5 pr-[30px] sticky top-0 bg-white" scope="col">
+                    <div class="flex items-center gap-x-2">
+                      <span class="text-[15px] font-medium text-black-100">Search Volume</span>
+                      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="directional" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="drop-down" fill="#26292C">
+                            <polygon id="Shape" points="5 8 12 16 19 8" class="opacity-80"></polygon>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                  </th>
+                  <th class="xl:pl-[45px] pl-5 bg-[#F4F4F4] sticky top-0 " scope="col">
+                    <div class="flex flex-col">
+                      <span class="inline-block text-[#595C6D] text-start text-[12px] py-2">Expected conversion
+                        rate</span>
+                      <div class="flex items-center gap-x-2  lg:py-7 py-5 !pt-0">
+                        <span class="text-[15px] font-medium text-black-100">Sponsored Products</span>
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <g id="directional" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="drop-down" fill="#26292C">
+                              <polygon id="Shape" points="5 8 12 16 19 8" class="opacity-80"></polygon>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                    </div>
+                  </th>
+                  <th class="lg:py-7 py-5 pr-[30px] bg-[#F4F4F4] sticky top-0" scope="col">
+                    <div class="flex items-center gap-x-2">
+                      <span class="text-[15px] font-medium text-black-100">Video</span>
+                      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="directional" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="drop-down" fill="#26292C">
+                            <polygon id="Shape" points="5 8 12 16 19 8" class="opacity-80"></polygon>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                  </th>
+                  <th class="lg:py-7 py-5  pr-[30px] bg-[#F4F4F4] sticky top-0" scope="col">
+                    <div class="flex items-center gap-x-2">
+                      <span class="text-[15px] font-medium text-black-100">Brand</span>
+                      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="directional" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="drop-down" fill="#26292C">
+                            <polygon id="Shape" points="5 8 12 16 19 8" class="opacity-80"></polygon>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                  </th>
+                  <th class="space-y-2 sm:space-y-0 sm:space-x-4 xl:pl-[45px] pl-5 sticky top-0 bg-white" scope="col">
+                    <div class="flex flex-col">
+                      <span class="inline-block text-[#595C6D] text-start text-[12px] py-2">Bid per click</span>
+                      <div class="flex items-center gap-x-2  lg:py-7 py-5 !pt-0">
+                        <span class="text-[15px] font-medium text-black-100">Sponsored Products</span>
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <g id="directional" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="drop-down" fill="#26292C">
+                              <polygon id="Shape" points="5 8 12 16 19 8" class="opacity-80"></polygon>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                    </div>
+                  </th>
+                  <th class="lg:py-7 py-5 pr-[30px] sticky top-0 bg-white" scope="col">
+                    <div class="flex items-center gap-x-2">
+                      <span class="text-[15px] font-medium text-black-100">Video</span>
+                      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="directional" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="drop-down" fill="#26292C">
+                            <polygon id="Shape" points="5 8 12 16 19 8" class="opacity-80"></polygon>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                  </th>
+                  <th class="lg:py-7 py-5 pr-[30px] sticky top-0 bg-white" scope="col">
+                    <div class="flex items-center gap-x-2">
+                      <span class="text-[15px] font-medium text-black-100">Brand</span>
+                      <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="directional" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g id="drop-down" fill="#26292C">
+                            <polygon id="Shape" points="5 8 12 16 19 8" class="opacity-80"></polygon>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+                  </th>
+                  <th class="py-7 text-[15px] font-medium text-black-100 bg-[#F4F4F4] sticky top-0" scope="col"> Actions </th>
+                </tr>
+              </thead>
+              <tbody>
+                <div>
+                  <tr class="even:bg-[#f0f7f5]">
+                    <td
+                      class="max-w-[184px] pl-5 pr-3 md:text-lg text-base font-semibold text-black-100 opacity-70 sm:pl-6">
+                      golf putting mat for indoors </td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      56,004</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-8"
+                      x-data="{ dropdown: false }">
+                      <div class="py-8 text-left inline-flex items-center rounded-xl relative">
+                        <div class="md:relative block">
+                          <button @click.prevent="dropdown = ! dropdown" type="button"
+                            class="md:relative inline-flex items-center rounded-r-xl text-xs font-semibold text-gray-700 focus:z-10 focus:outline-none"
+                            id="option-menu-button" aria-expanded="true" aria-haspopup="true">
+                            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 44 44"
+                              width="44" height="44">
+                              <defs>
+                                <image width="44" height="44" id="img1"
+                                  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAAXNSR0IB2cksfwAAAJlQTFRFAAAAAAAAgICAVVVVQECAVVWAVVVxVVVqYmJ2VVVmVVV3TU1mw9LSzN3Y0eLc0ube0ubf1OjgVVVVXV10ucbGzt/Z0+bd3Ozl5/Lu8ff0+Pv6/P79////////QEBApriyzuHb1ejgZmZmYmJiytrW0OHb9fr4AAD/4/DqW1tt0uPd5fHsprKyTWZm6fPvstTHp86/rNHD/v7+5vL78QAAADN0Uk5TAAECAwQGCQwNDw8KVZXD4fX9Bgs6oev///////8BBCus/wUNfaz/Af8Owv8rCv//////kscB1wAAAYJJREFUeJyVlemSgjAQhCGc4Qx3gLgKgooX7r7/w62Aa2GI1k7/hK+6ZjrJjCRxkhFSRiEk8/94UtV0w8SWhU1D19QPvKxoNnZczydBQHzPdbCtKWJcRmEUJ2lG86JkrCxymqVJHIUi99WXvd5UtGAzFbTarO2v1YKttw2hJeNUUtJsa45ehbjNdjw6aJe1OHyh9zX2DiJ00MHD9X7WW90dT+9Yxk7Hrn52Katm+9Z39G5N9Y9GepN9YhnLGh09jLUzEfY265KctclaiVr6mWWMtpEyGodxtciXV1nF4WCNLglvfO37K2+dXIaqVZwW3J/+duu5T0WK1aE9ZxHF9xJmmXNvEenuoj1BGYy69/SQ4eXipl6VewaSlM7nSxaq8DtFUjBZBCcqoyT4DlvBwkWQBmOBJYZFaUwwqAxIg6DoQIciOm5RGuNxiy6SII3pIsGuKOjyz5/VD6+n8eNZwR4saBTAhgxofMEGI2zkwoY5bE3AFpAEWm2T+7+X5oN/v45/Afi5nMW3ezz/AAAAAElFTkSuQmCC" />
+                              </defs>
+                              <style></style>
+                              <use href="#img1" x="0" y="0" />
+                            </svg>
+                          </button>
+                          <div x-show="dropdown" :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95" @click.outside="dropdown = false"
+                            class="absolute  md:left-auto right-0 z-10 -mr-1 w-56 origin-top-right rounded-xl max-w-[150px] bg-[#F4F4F4] dark:bg-green-800 shadow-lg focus:outline-none"
+                            role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                            <div class="py-1" role="none">
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 01</a>
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 02</a>
+                                <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 03</a>                             
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="even:bg-[#f0f7f5]">
+                    <td
+                      class="max-w-[184px] pl-5 pr-3 md:text-lg text-base font-semibold text-black-100 opacity-70 sm:pl-6">
+                      golf putting mat for indoors </td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      56,004</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-8"
+                      x-data="{ dropdown: false }">
+                      <div class="py-8 text-left inline-flex items-center rounded-xl relative">
+                        <div class="md:relative block">
+                          <button @click.prevent="dropdown = ! dropdown" type="button"
+                            class="md:relative inline-flex items-center rounded-r-xl text-xs font-semibold text-gray-700 focus:z-10 focus:outline-none"
+                            id="option-menu-button" aria-expanded="true" aria-haspopup="true">
+                            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 44 44"
+                              width="44" height="44">
+                              <defs>
+                                <image width="44" height="44" id="img1"
+                                  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAAXNSR0IB2cksfwAAAJlQTFRFAAAAAAAAgICAVVVVQECAVVWAVVVxVVVqYmJ2VVVmVVV3TU1mw9LSzN3Y0eLc0ube0ubf1OjgVVVVXV10ucbGzt/Z0+bd3Ozl5/Lu8ff0+Pv6/P79////////QEBApriyzuHb1ejgZmZmYmJiytrW0OHb9fr4AAD/4/DqW1tt0uPd5fHsprKyTWZm6fPvstTHp86/rNHD/v7+5vL78QAAADN0Uk5TAAECAwQGCQwNDw8KVZXD4fX9Bgs6oev///////8BBCus/wUNfaz/Af8Owv8rCv//////kscB1wAAAYJJREFUeJyVlemSgjAQhCGc4Qx3gLgKgooX7r7/w62Aa2GI1k7/hK+6ZjrJjCRxkhFSRiEk8/94UtV0w8SWhU1D19QPvKxoNnZczydBQHzPdbCtKWJcRmEUJ2lG86JkrCxymqVJHIUi99WXvd5UtGAzFbTarO2v1YKttw2hJeNUUtJsa45ehbjNdjw6aJe1OHyh9zX2DiJ00MHD9X7WW90dT+9Yxk7Hrn52Katm+9Z39G5N9Y9GepN9YhnLGh09jLUzEfY265KctclaiVr6mWWMtpEyGodxtciXV1nF4WCNLglvfO37K2+dXIaqVZwW3J/+duu5T0WK1aE9ZxHF9xJmmXNvEenuoj1BGYy69/SQ4eXipl6VewaSlM7nSxaq8DtFUjBZBCcqoyT4DlvBwkWQBmOBJYZFaUwwqAxIg6DoQIciOm5RGuNxiy6SII3pIsGuKOjyz5/VD6+n8eNZwR4saBTAhgxofMEGI2zkwoY5bE3AFpAEWm2T+7+X5oN/v45/Afi5nMW3ezz/AAAAAElFTkSuQmCC" />
+                              </defs>
+                              <style></style>
+                              <use href="#img1" x="0" y="0" />
+                            </svg>
+                          </button>
+                          <div x-show="dropdown" :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95" @click.outside="dropdown = false"
+                            class="absolute md:left-auto right-0 z-10 -mr-1 w-56 origin-top-right rounded-xl max-w-[150px] bg-[#F4F4F4] dark:bg-green-800 shadow-lg focus:outline-none"
+                            role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                            <div class="py-1" role="none">
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 01</a>
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 02</a>
+                                <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 03</a>                             
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="even:bg-[#f0f7f5]">
+                    <td
+                      class="max-w-[184px] pl-5 pr-3 md:text-lg text-base font-semibold text-black-100 opacity-70 sm:pl-6">
+                      golf putting mat for indoors </td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      56,004</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-8"
+                      x-data="{ dropdown: false }">
+                      <div class="py-8 text-left inline-flex items-center rounded-xl relative">
+                        <div class="md:relative block">
+                          <button @click.prevent="dropdown = ! dropdown" type="button"
+                            class="md:relative inline-flex items-center rounded-r-xl text-xs font-semibold text-gray-700 focus:z-10 focus:outline-none"
+                            id="option-menu-button" aria-expanded="true" aria-haspopup="true">
+                            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 44 44"
+                              width="44" height="44">
+                              <defs>
+                                <image width="44" height="44" id="img1"
+                                  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAAXNSR0IB2cksfwAAAJlQTFRFAAAAAAAAgICAVVVVQECAVVWAVVVxVVVqYmJ2VVVmVVV3TU1mw9LSzN3Y0eLc0ube0ubf1OjgVVVVXV10ucbGzt/Z0+bd3Ozl5/Lu8ff0+Pv6/P79////////QEBApriyzuHb1ejgZmZmYmJiytrW0OHb9fr4AAD/4/DqW1tt0uPd5fHsprKyTWZm6fPvstTHp86/rNHD/v7+5vL78QAAADN0Uk5TAAECAwQGCQwNDw8KVZXD4fX9Bgs6oev///////8BBCus/wUNfaz/Af8Owv8rCv//////kscB1wAAAYJJREFUeJyVlemSgjAQhCGc4Qx3gLgKgooX7r7/w62Aa2GI1k7/hK+6ZjrJjCRxkhFSRiEk8/94UtV0w8SWhU1D19QPvKxoNnZczydBQHzPdbCtKWJcRmEUJ2lG86JkrCxymqVJHIUi99WXvd5UtGAzFbTarO2v1YKttw2hJeNUUtJsa45ehbjNdjw6aJe1OHyh9zX2DiJ00MHD9X7WW90dT+9Yxk7Hrn52Katm+9Z39G5N9Y9GepN9YhnLGh09jLUzEfY265KctclaiVr6mWWMtpEyGodxtciXV1nF4WCNLglvfO37K2+dXIaqVZwW3J/+duu5T0WK1aE9ZxHF9xJmmXNvEenuoj1BGYy69/SQ4eXipl6VewaSlM7nSxaq8DtFUjBZBCcqoyT4DlvBwkWQBmOBJYZFaUwwqAxIg6DoQIciOm5RGuNxiy6SII3pIsGuKOjyz5/VD6+n8eNZwR4saBTAhgxofMEGI2zkwoY5bE3AFpAEWm2T+7+X5oN/v45/Afi5nMW3ezz/AAAAAElFTkSuQmCC" />
+                              </defs>
+                              <style></style>
+                              <use href="#img1" x="0" y="0" />
+                            </svg>
+                          </button>
+                          <div x-show="dropdown" :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95" @click.outside="dropdown = false"
+                            class="absolute md:left-auto right-0 z-10 -mr-1 w-56 origin-top-right rounded-xl max-w-[150px] bg-[#F4F4F4] dark:bg-green-800 shadow-lg focus:outline-none"
+                            role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                            <div class="py-1" role="none">
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 01</a>
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 02</a>
+                                <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 03</a>                             
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="even:bg-[#f0f7f5]">
+                    <td
+                      class="max-w-[184px] pl-5 pr-3 md:text-lg text-base font-semibold text-black-100 opacity-70 sm:pl-6">
+                      golf putting mat for indoors </td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      56,004</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-8"
+                      x-data="{ dropdown: false }">
+                      <div class="py-8 text-left inline-flex items-center rounded-xl relative">
+                        <div class="md:relative block">
+                          <button @click.prevent="dropdown = ! dropdown" type="button"
+                            class="md:relative inline-flex items-center rounded-r-xl text-xs font-semibold text-gray-700 focus:z-10 focus:outline-none"
+                            id="option-menu-button" aria-expanded="true" aria-haspopup="true">
+                            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 44 44"
+                              width="44" height="44">
+                              <defs>
+                                <image width="44" height="44" id="img1"
+                                  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAAXNSR0IB2cksfwAAAJlQTFRFAAAAAAAAgICAVVVVQECAVVWAVVVxVVVqYmJ2VVVmVVV3TU1mw9LSzN3Y0eLc0ube0ubf1OjgVVVVXV10ucbGzt/Z0+bd3Ozl5/Lu8ff0+Pv6/P79////////QEBApriyzuHb1ejgZmZmYmJiytrW0OHb9fr4AAD/4/DqW1tt0uPd5fHsprKyTWZm6fPvstTHp86/rNHD/v7+5vL78QAAADN0Uk5TAAECAwQGCQwNDw8KVZXD4fX9Bgs6oev///////8BBCus/wUNfaz/Af8Owv8rCv//////kscB1wAAAYJJREFUeJyVlemSgjAQhCGc4Qx3gLgKgooX7r7/w62Aa2GI1k7/hK+6ZjrJjCRxkhFSRiEk8/94UtV0w8SWhU1D19QPvKxoNnZczydBQHzPdbCtKWJcRmEUJ2lG86JkrCxymqVJHIUi99WXvd5UtGAzFbTarO2v1YKttw2hJeNUUtJsa45ehbjNdjw6aJe1OHyh9zX2DiJ00MHD9X7WW90dT+9Yxk7Hrn52Katm+9Z39G5N9Y9GepN9YhnLGh09jLUzEfY265KctclaiVr6mWWMtpEyGodxtciXV1nF4WCNLglvfO37K2+dXIaqVZwW3J/+duu5T0WK1aE9ZxHF9xJmmXNvEenuoj1BGYy69/SQ4eXipl6VewaSlM7nSxaq8DtFUjBZBCcqoyT4DlvBwkWQBmOBJYZFaUwwqAxIg6DoQIciOm5RGuNxiy6SII3pIsGuKOjyz5/VD6+n8eNZwR4saBTAhgxofMEGI2zkwoY5bE3AFpAEWm2T+7+X5oN/v45/Afi5nMW3ezz/AAAAAElFTkSuQmCC" />
+                              </defs>
+                              <style></style>
+                              <use href="#img1" x="0" y="0" />
+                            </svg>
+                          </button>
+                          <div x-show="dropdown" :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95" @click.outside="dropdown = false"
+                            class="absolute md:left-auto right-0 z-10 -mr-1 w-56 origin-top-right rounded-xl max-w-[150px] bg-[#F4F4F4] dark:bg-green-800 shadow-lg focus:outline-none"
+                            role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                            <div class="py-1" role="none">
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 01</a>
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 02</a>
+                                <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 03</a>                             
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="even:bg-[#f0f7f5]">
+                    <td
+                      class="max-w-[184px] pl-5 pr-3 md:text-lg text-base font-semibold text-black-100 opacity-70 sm:pl-6">
+                      golf putting mat for indoors </td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      56,004</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-8"
+                      x-data="{ dropdown: false }">
+                      <div class="py-8 text-left inline-flex items-center rounded-xl relative">
+                        <div class="md:relative block">
+                          <button @click.prevent="dropdown = ! dropdown" type="button"
+                            class="md:relative inline-flex items-center rounded-r-xl text-xs font-semibold text-gray-700 focus:z-10 focus:outline-none"
+                            id="option-menu-button" aria-expanded="true" aria-haspopup="true">
+                            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 44 44"
+                              width="44" height="44">
+                              <defs>
+                                <image width="44" height="44" id="img1"
+                                  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAAXNSR0IB2cksfwAAAJlQTFRFAAAAAAAAgICAVVVVQECAVVWAVVVxVVVqYmJ2VVVmVVV3TU1mw9LSzN3Y0eLc0ube0ubf1OjgVVVVXV10ucbGzt/Z0+bd3Ozl5/Lu8ff0+Pv6/P79////////QEBApriyzuHb1ejgZmZmYmJiytrW0OHb9fr4AAD/4/DqW1tt0uPd5fHsprKyTWZm6fPvstTHp86/rNHD/v7+5vL78QAAADN0Uk5TAAECAwQGCQwNDw8KVZXD4fX9Bgs6oev///////8BBCus/wUNfaz/Af8Owv8rCv//////kscB1wAAAYJJREFUeJyVlemSgjAQhCGc4Qx3gLgKgooX7r7/w62Aa2GI1k7/hK+6ZjrJjCRxkhFSRiEk8/94UtV0w8SWhU1D19QPvKxoNnZczydBQHzPdbCtKWJcRmEUJ2lG86JkrCxymqVJHIUi99WXvd5UtGAzFbTarO2v1YKttw2hJeNUUtJsa45ehbjNdjw6aJe1OHyh9zX2DiJ00MHD9X7WW90dT+9Yxk7Hrn52Katm+9Z39G5N9Y9GepN9YhnLGh09jLUzEfY265KctclaiVr6mWWMtpEyGodxtciXV1nF4WCNLglvfO37K2+dXIaqVZwW3J/+duu5T0WK1aE9ZxHF9xJmmXNvEenuoj1BGYy69/SQ4eXipl6VewaSlM7nSxaq8DtFUjBZBCcqoyT4DlvBwkWQBmOBJYZFaUwwqAxIg6DoQIciOm5RGuNxiy6SII3pIsGuKOjyz5/VD6+n8eNZwR4saBTAhgxofMEGI2zkwoY5bE3AFpAEWm2T+7+X5oN/v45/Afi5nMW3ezz/AAAAAElFTkSuQmCC" />
+                              </defs>
+                              <style></style>
+                              <use href="#img1" x="0" y="0" />
+                            </svg>
+                          </button>
+                          <div x-show="dropdown" :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95" @click.outside="dropdown = false"
+                            class="absolute md:left-auto right-0 z-10 -mr-1 w-56 origin-top-right rounded-xl max-w-[150px] bg-[#F4F4F4] dark:bg-green-800 shadow-lg focus:outline-none"
+                            role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                            <div class="py-1" role="none">
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 01</a>
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 02</a>
+                                <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 03</a>                             
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="even:bg-[#f0f7f5]">
+                    <td
+                      class="max-w-[184px] pl-5 pr-3 md:text-lg text-base font-semibold text-black-100 opacity-70 sm:pl-6">
+                      golf putting mat for indoors </td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      56,004</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td
+                      class="whitespace-nowrap md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      1,120</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.00%</td>
+                    <td
+                      class="whitespace-nowrap  pr-[30px] md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                      2.2%</td>
+                    <td class="relative whitespace-nowrap pl-3 pr-4 text-right text-sm font-medium sm:pr-8"
+                      x-data="{ dropdown: false }">
+                      <div class="py-8 text-left inline-flex items-center rounded-xl relative">
+                        <div class="md:relative block">
+                          <button @click.prevent="dropdown = ! dropdown" type="button"
+                            class="md:relative inline-flex items-center rounded-r-xl text-xs font-semibold text-gray-700 focus:z-10 focus:outline-none"
+                            id="option-menu-button" aria-expanded="true" aria-haspopup="true">
+                            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 44 44"
+                              width="44" height="44">
+                              <defs>
+                                <image width="44" height="44" id="img1"
+                                  href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAAAXNSR0IB2cksfwAAAJlQTFRFAAAAAAAAgICAVVVVQECAVVWAVVVxVVVqYmJ2VVVmVVV3TU1mw9LSzN3Y0eLc0ube0ubf1OjgVVVVXV10ucbGzt/Z0+bd3Ozl5/Lu8ff0+Pv6/P79////////QEBApriyzuHb1ejgZmZmYmJiytrW0OHb9fr4AAD/4/DqW1tt0uPd5fHsprKyTWZm6fPvstTHp86/rNHD/v7+5vL78QAAADN0Uk5TAAECAwQGCQwNDw8KVZXD4fX9Bgs6oev///////8BBCus/wUNfaz/Af8Owv8rCv//////kscB1wAAAYJJREFUeJyVlemSgjAQhCGc4Qx3gLgKgooX7r7/w62Aa2GI1k7/hK+6ZjrJjCRxkhFSRiEk8/94UtV0w8SWhU1D19QPvKxoNnZczydBQHzPdbCtKWJcRmEUJ2lG86JkrCxymqVJHIUi99WXvd5UtGAzFbTarO2v1YKttw2hJeNUUtJsa45ehbjNdjw6aJe1OHyh9zX2DiJ00MHD9X7WW90dT+9Yxk7Hrn52Katm+9Z39G5N9Y9GepN9YhnLGh09jLUzEfY265KctclaiVr6mWWMtpEyGodxtciXV1nF4WCNLglvfO37K2+dXIaqVZwW3J/+duu5T0WK1aE9ZxHF9xJmmXNvEenuoj1BGYy69/SQ4eXipl6VewaSlM7nSxaq8DtFUjBZBCcqoyT4DlvBwkWQBmOBJYZFaUwwqAxIg6DoQIciOm5RGuNxiy6SII3pIsGuKOjyz5/VD6+n8eNZwR4saBTAhgxofMEGI2zkwoY5bE3AFpAEWm2T+7+X5oN/v45/Afi5nMW3ezz/AAAAAElFTkSuQmCC" />
+                              </defs>
+                              <style></style>
+                              <use href="#img1" x="0" y="0" />
+                            </svg>
+                          </button>
+                          <div x-show="dropdown" :class="{ 'block': dropdown, 'hidden': !(dropdown) }"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95" @click.outside="dropdown = false"
+                            class="absolute md:left-auto right-0 z-10 -mr-1 w-56 origin-top-right rounded-xl max-w-[150px] bg-[#F4F4F4] dark:bg-green-800 shadow-lg focus:outline-none"
+                            role="menu" aria-orientation="vertical" aria-labelledby="option-menu-button" tabindex="-1">
+                            <div class="py-1" role="none">
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 01</a>
+                              <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 02</a>
+                                <a href="#"
+                                class="text-black-100 opacity-80 hover:opacity-100 block px-4 py-2.5 text-xs font-semibold"
+                                role="menuitem" tabindex="-1" id="option-menu-item-0">Action Name 03</a>                             
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </div>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- table end -->
+    </div>
+  </div>
+  <footer>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.magic("tooltip", (el) => (message) => {
+          let instance = tippy(el, {
+            content: message,
+            trigger: "manual"
+          });
+          instance.show();
+          setTimeout(() => {
+            instance.hide();
+            setTimeout(() => instance.destroy(), 150);
+          }, 2000);
+        });
+        Alpine.directive("tooltip", (el, {
+          expression
+        }) => {
+          tippy(el, {
+            content: expression
+          });
+        });
+      });
+    </script>
+  </footer>
+</body>
+
+</html>
