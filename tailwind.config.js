@@ -17,7 +17,7 @@ module.exports = {
           600: '#1E7150',
           700: '#155139',
           800: '#0D3022',
-          900: '#092017',          
+          900: '#092017',           
         },
         black:{
           100:'#26292C',
@@ -34,7 +34,7 @@ module.exports = {
       },
     },
   },
-  plugins: [
+  plugins: [      
     require('@tailwindcss/forms'),
     // require('@tailwindcss/aspect-ratio'),
     // require('@tailwindcss/typography'),

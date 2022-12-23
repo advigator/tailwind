@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en" :class="{ 'dark': dark }" x-data="{ dark: $persist(false) }">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advigator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script defer src="https://unpkg.com/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  </head>
+  <body>
+    <div class="sticky top-0 z-10">
+      <nav class="bg-gray-100 dark:bg-green-900 border-b border-gray-200 dark:border-green-800" x-data="{ mobile: false }" @click.outside="mobile = false">
+        <div class="px-2 sm:px-6 lg:px-[60px]">
+          <div class="relative flex py-5 xl:pt-8 xl:pb-0 items-center justify-between">
+            <div class="absolute inset-y-0 left-0 flex items-center xl:hidden">
+              <!-- Mobile menu button-->
+              <button @click="mobile = ! mobile" type="button" class="inline-flex items-center justify-center rounded-md p-2 text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-green-800 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg :class="{ 'hidden': mobile, 'block': !(mobile) }" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+                <svg :class="{ 'block': mobile, 'hidden': !(mobile) }" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div class="flex flex-1 items-center justify-center xl:items-stretch xl:justify-start">
+              <div class="flex flex-shrink-0 items-center">
+                <a href="/">
+                  <img class="block h-7 w-auto xl:hidden" src="https://dummyimage.com/120x30/ccc/ccc" alt="Advigator" />
+                  <img class="hidden h-7 w-auto xl:block" src="https://dummyimage.com/120x30/ccc/ccc" alt="Advigator" />
+                </a>
+              </div>
+              <div class="hidden xl:ml-8 xl:ml-14 xl:block">
+                <div class="flex space-x-4">
+                  <!-- Current -->
+                  <a href="#" class="bg-green-500 text-white px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center" aria-current="page">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46" />
+                    </svg>
+                    <span>Campaigns</span>
+                  </a>
+                  <a href="#" class="relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+                    </svg>
+                    <span>Analytics</span>
+                    <span class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+                  </a>
+                  <a href="#" class="relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+                    </svg>
+                    <span>Bulk operations</span>
+                    <span class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+                  </a>
+                  <a href="#" class="relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Settings</span>
+                    <span class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+                  </a>
+                  <a href="#" class="relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                    </svg>
+                    <span>Guides</span>
+                    <span class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+                  </a>
+                  <a href="#" class="relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 rounded-t-xl text-sm font-medium flex items-center transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                    </svg>
+                    <span>Support</span>
+                    <span class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="absolute inset-y-0 right-0 flex items-center justify-end pr-2 xl:static xl:inset-auto xl:ml-6 xl:pr-0">
+              <a href="#" class="hidden xl:flex relative group text-gray-800 hover:text-green-500 dark:text-gray-300 dark:hover:text-green-300 px-3 py-3.5 text-sm font-medium items-center transition">
+                <span>Sign in</span>
+                <span class="absolute left-0 h-0.5 bottom-0 bg-green-500 dark:bg-green-300 w-0 group-hover:w-full transition-all"></span>
+              </a>
+              <!-- Account dropdown -->
+              <button @click.prevent="dark = ! dark" type="button" role="switch" class="relative ml-6 xl:ml-10 inline-flex items-center w-12 rounded-full py-0.5 transition bg-white dark:bg-green-800 border border-yellow-500 dark:border-green-600 text-yellow-500 dark:text-green-600">
+                <span :class="{ 'translate-x-6': dark, 'translate-x-0.5': !(dark) }" class="bg-yellow-500 dark:bg-green-600 h-5 w-5 rounded-full transition shadow-md" aria-hidden="true"></span>
+                <svg :class="{ 'block': dark, 'hidden': !(dark) }" class="h-4 w-4 absolute left-1" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15.725 8.64175C15.1 4.67508 11.5583 1.68341 7.54163 1.66675C7.13329 1.66675 6.73329 1.69175 6.34163 1.75008C5.92496 1.80841 5.84163 2.35841 6.22496 2.55008C8.95829 3.90841 10.8333 6.73342 10.8333 10.0001C10.8333 13.2667 8.95829 16.0917 6.22496 17.4584C5.84996 17.6501 5.92496 18.2001 6.34163 18.2584C6.73329 18.3084 7.13329 18.3334 7.54163 18.3334C11.5583 18.3167 15.1 15.3251 15.725 11.3584C15.8 10.9001 15.8166 10.4501 15.8166 10.0001C15.8166 9.55008 15.8 9.10008 15.725 8.64175Z" fill="currentColor" />
+                </svg>
+                <svg :class="{ 'hidden': dark, 'block': !(dark) }" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute right-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>       
+        <div x-show="mobile" :class="{ 'block': mobile, 'hidden': !(mobile) }" x-transition:enter="duration-200 ease-out" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="duration-100 ease-in" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="xl:hidden" id="mobile-menu">
+          <div class="space-y-1 px-2 pt-2 pb-3">
+            <!-- Current: "bg-green-800 text-white", Default: "text-gray-300 hover:bg-green-700 hover:text-white" -->
+            <a href="#" class="bg-gray-200 dark:bg-green-800 text-gray-800 dark:text-white block px-3 py-2.5 rounded-md text-base font-medium" aria-current="page">Campaigns</a>
+            <a href="#" class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Analytics</a>
+            <a href="#" class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Bulk operations</a>
+            <a href="#" class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Settings</a>
+            <a href="#" class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Guides</a>
+            <a href="#" class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Support</a>
+            <a href="#" class="text-gray-800 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-green-700 dark:hover:text-white block px-3 py-2.5 rounded-md text-base font-medium">Sign in</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div>
+     
+      <div x-data="{ open: false }" @keydown.window.escape="open = false">
+        <!-- mobile view sidebar start -->
+        <div x-show="open" class="relative z-40 lg:hidden" x-description="Off-canvas menu for mobile, show/hide based on off-canvas menu state." x-ref="dialog" aria-modal="true" style="display: none;">
+          <div x-show="open" x-transition:enter="transition-opacity ease-linear duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-linear duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-gray-600 bg-opacity-75" x-description="Off-canvas menu backdrop, show/hide based on off-canvas menu state." style="display: none;"></div>
+          <div class="fixed inset-0 z-40 flex">
+            <div x-show="open" x-transition:enter="transition ease-in-out duration-300 transform" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in-out duration-300 transform" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full" x-description="Off-canvas menu, show/hide based on off-canvas menu state." class="relative flex w-full max-w-xs flex-1 flex-col bg-white shadow-md pt-5 pb-4" @click.away="open = false" style="display: none;">
+              <div x-show="open" x-transition:enter="ease-in-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in-out duration-300" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" x-description="Close button, show/hide based on off-canvas menu state." class="absolute top-0 right-0 -mr-12 pt-2" style="display: none;">
+                <button type="button" class="bg-[#12432F] p-2 rounded-full ml-1 flex h-10 w-10 items-center justify-center  focus:outline-none"  @click="open = false">                  
+                  <svg class="h-7 w-7 text-white" x-description="Heroicon name: outline/x-mark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#fff" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+              <div class="flex flex-shrink-0 items-center gap-x-4  px-4">
+                <img class="h-5 sm:w-auto w-6" src="/img/flag.png" alt="Fit Fitaly" />
+                <span class="font-semibold sm:text-3xl !leading-7 text-lg text-black-100  opacity-90">Fit Fitaly</span>
+              </div>
+              <div class="lg:mt-5 mt-10 h-0 flex-1 overflow-y-auto account_table">
+                <nav class="pl-8">
+                  <a href="#" class="bg-[#12432F] text-white group flex gap-2 items-center px-5 py-5 text-base font-semibold rounded-[15px] rounded-r-none">
+                    <svg class="flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                    </svg> Account </a>
+                  <a href="#" class="relative transition-all text-black-100 text-opacity-80 hover:!text-opacity-100 duration-500 before:transition-all before:duration-500 before:w-0 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border  group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-base font-semibold rounded-[15px] rounded-r-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18.647" height="21" viewBox="0 0 18.647 21">
+                      <path id="flag_FILL0_wght400_GRAD0_opsz48" d="M10.882,28A.855.855,0,0,1,10,27.118V8.882A.855.855,0,0,1,10.882,8h8.5a.859.859,0,0,1,.559.191.83.83,0,0,1,.294.515l.412,1.824h6.118a.855.855,0,0,1,.882.882v9.118a.855.855,0,0,1-.882.882H20.824a.924.924,0,0,1-.544-.176.749.749,0,0,1-.309-.5l-.412-1.824H11.765v8.206a.855.855,0,0,1-.882.882ZM18.824,14.706Zm2.794,4.941h4.265V12.294H19.147l-.559-2.529H11.765v7.382h9.294Z" transform="translate(-9.5 -7.5)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                    </svg> Marketplace </a>
+                  <a href="#" class="relative transition-all text-black-100 text-opacity-80  hover:text-[#12432F] duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-base font-semibold rounded-[15px] rounded-r-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
+                      <path id="group_work_FILL0_wght400_GRAD0_opsz48" d="M11.675,18a1.745,1.745,0,0,0,1.3-.538,1.841,1.841,0,0,0,0-2.575A1.716,1.716,0,0,0,11.7,14.35a1.786,1.786,0,0,0-1.312.538A1.825,1.825,0,0,0,11.675,18Zm4.65,0a1.835,1.835,0,1,0-1.288-.537A1.756,1.756,0,0,0,16.325,18ZM14,13.325a1.778,1.778,0,0,0,1.288-.525,1.825,1.825,0,1,0-2.575-2.587,1.826,1.826,0,0,0,0,2.587A1.778,1.778,0,0,0,14,13.325ZM14,24a9.676,9.676,0,0,1-3.875-.788,10.075,10.075,0,0,1-5.338-5.337,9.989,9.989,0,0,1,0-7.775,9.994,9.994,0,0,1,2.15-3.175,10.251,10.251,0,0,1,3.188-2.137,9.989,9.989,0,0,1,7.775,0A9.984,9.984,0,0,1,23.212,10.1a9.989,9.989,0,0,1,0,7.775,10.251,10.251,0,0,1-2.138,3.188,9.994,9.994,0,0,1-3.175,2.15A9.738,9.738,0,0,1,14,24Zm.025-1.5a8.15,8.15,0,0,0,6-2.487A8.242,8.242,0,0,0,22.5,13.975a8.171,8.171,0,0,0-2.475-6A8.2,8.2,0,0,0,14,5.5,8.212,8.212,0,0,0,7.988,7.975,8.179,8.179,0,0,0,5.5,14a8.191,8.191,0,0,0,2.488,6.013A8.22,8.22,0,0,0,14.025,22.5ZM14,14Z" transform="translate(-3.5 -3.5)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                    </svg> Campaign Groups </a>
+                  <a href="#" class="relative transition-all text-black-100 text-opacity-80  hover:text-[#12432F] duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-base font-semibold rounded-[15px] rounded-r-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26.94" height="21.002" viewBox="0 0 26.94 21.002">
+                      <path id="campaign_FILL0_wght400_GRAD0_opsz48-3" d="M26.049,19.553a.973.973,0,1,1,0-1.946h2.918a.973.973,0,1,1,0,1.946Zm-.13,8.82-2.367-1.751a1.025,1.025,0,0,1-.389-.649.87.87,0,0,1,.195-.713,1.025,1.025,0,0,1,.649-.389.87.87,0,0,1,.713.195l2.367,1.751a1.025,1.025,0,0,1,.389.649.87.87,0,0,1-.195.713,1.025,1.025,0,0,1-.649.389A.87.87,0,0,1,25.92,28.372Zm-1.1-16.31a.87.87,0,0,1-.713.195,1.025,1.025,0,0,1-.649-.389.87.87,0,0,1-.195-.713,1.025,1.025,0,0,1,.389-.649l2.27-1.719a.87.87,0,0,1,.713-.195,1.025,1.025,0,0,1,.649.389.87.87,0,0,1,.195.713,1.025,1.025,0,0,1-.389.649Zm-16.6,15.6V22.471H5.946A1.937,1.937,0,0,1,4,20.526V16.634a1.937,1.937,0,0,1,1.946-1.946h5.837l5.026-3.016a.884.884,0,0,1,.973,0,.929.929,0,0,1,.486.843V24.644a.929.929,0,0,1-.486.843.884.884,0,0,1-.973,0l-5.026-3.016H10.161v5.188ZM11.134,18.58Zm8.431,4.345v-8.69a5.923,5.923,0,0,1,1.411,1.9,5.868,5.868,0,0,1,0,4.9A5.923,5.923,0,0,1,19.564,22.925Zm-3.243,0v-8.69l-4.021,2.4H5.946v3.891H12.3Z" transform="translate(-3.5 -8.079)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                    </svg> Campaigns </a>
+                  <a href="#" class="relative transition-all text-black-100 text-opacity-80  hover:text-[#12432F] duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-base font-semibold rounded-[15px] rounded-r-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="14.636" viewBox="0 0 26 14.636">
+                      <path id="vpn_key_FILL0_wght400_GRAD0_opsz48" d="M8.818,25.636a6.575,6.575,0,0,1-4.83-1.989A6.575,6.575,0,0,1,2,18.818a6.575,6.575,0,0,1,1.989-4.83A6.575,6.575,0,0,1,8.818,12a6.346,6.346,0,0,1,3.736,1.065,6.4,6.4,0,0,1,2.259,2.827H25.3A1.7,1.7,0,0,1,27,17.6V20.04a1.7,1.7,0,0,1-1.7,1.7H23.989v2.188a1.7,1.7,0,0,1-1.7,1.7H20.409a1.7,1.7,0,0,1-1.7-1.7V21.744H14.812a6.4,6.4,0,0,1-2.259,2.827A6.346,6.346,0,0,1,8.818,25.636Zm0-1.7a4.406,4.406,0,0,0,3.31-1.335,5.207,5.207,0,0,0,1.52-2.557h6.875v3.892h1.761V20.04H25.3V17.6H13.648a5.207,5.207,0,0,0-1.52-2.557A4.406,4.406,0,0,0,8.818,13.7,4.931,4.931,0,0,0,5.2,15.2a5.144,5.144,0,0,0,0,7.244A4.931,4.931,0,0,0,8.818,23.932Zm0-3.182a1.932,1.932,0,1,0,0-3.864,1.932,1.932,0,1,0,0,3.864ZM8.818,18.818Z" transform="translate(-1.5 -11.5)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                    </svg> Keywords </a>
+                  <a href="#" class="relative transition-all text-black-100 text-opacity-80  hover:text-[#12432F] duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-base font-semibold rounded-[15px] rounded-r-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21.028" height="21" viewBox="0 0 21.028 21">
+                      <path id="search_FILL0_wght400_GRAD0_opsz48" d="M24.5,25.7l-6.818-6.818a6.234,6.234,0,0,1-1.98,1.146,7,7,0,0,1-2.4.41,7.044,7.044,0,0,1-5.177-2.122A6.977,6.977,0,0,1,6,13.192a6.977,6.977,0,0,1,2.122-5.12A7.01,7.01,0,0,1,13.27,5.95a6.931,6.931,0,0,1,5.106,2.122,7.24,7.24,0,0,1,1.711,7.468A7.18,7.18,0,0,1,18.9,17.661l6.874,6.818a.741.741,0,0,1,.255.58.879.879,0,0,1-.283.636.888.888,0,0,1-1.245,0ZM13.27,18.736a5.294,5.294,0,0,0,3.9-1.627,5.364,5.364,0,0,0,1.612-3.918,5.364,5.364,0,0,0-1.612-3.918,5.294,5.294,0,0,0-3.9-1.627A5.373,5.373,0,0,0,9.324,9.274,5.34,5.34,0,0,0,7.7,13.192,5.34,5.34,0,0,0,9.324,17.11,5.373,5.373,0,0,0,13.27,18.736Z" transform="translate(-5.5 -5.45)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                    </svg> Search Terms </a>
+                  <a href="#" class="relative transition-all text-black-100 text-opacity-80  hover:text-[#12432F] duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-base font-semibold rounded-[15px] rounded-r-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="21.003" height="19.453" viewBox="0 0 21.003 19.453">
+                      <path id="translate_FILL0_wght400_GRAD0_opsz48" d="M13.326,22.453a.877.877,0,0,1-.773-.346.888.888,0,0,1-.058-.853l3.391-9a1.312,1.312,0,0,1,.507-.623,1.327,1.327,0,0,1,.761-.254,1.38,1.38,0,0,1,.773.254,1.3,1.3,0,0,1,.519.623l3.46,8.9a.883.883,0,0,1-.9,1.292.832.832,0,0,1-.484-.161.855.855,0,0,1-.323-.415l-.761-2.33H15.01L14.133,21.9a.873.873,0,0,1-.323.392.832.832,0,0,1-.484.161Zm2.191-4.521h3.275l-1.615-4.475h-.046ZM7.744,10.043A12.607,12.607,0,0,0,8.5,11.208q.415.565.9,1.165a12.477,12.477,0,0,0,1.73-2.249,15.769,15.769,0,0,0,1.176-2.434H2.923a.923.923,0,1,1,0-1.845H8.459V4.923a.923.923,0,1,1,1.845,0v.923H15.84a.923.923,0,1,1,0,1.845H14.156a17.6,17.6,0,0,1-1.349,3.126,16.126,16.126,0,0,1-2.064,2.918L13,16.018l-.692,1.868L9.381,15.072,5.391,19.063a.847.847,0,0,1-.623.254.812.812,0,0,1-.623-.277.812.812,0,0,1-.277-.623.885.885,0,0,1,.277-.646l4.06-4.06q-.6-.715-1.13-1.442a16.4,16.4,0,0,1-.969-1.488.828.828,0,0,1-.046-.877.9.9,0,0,1,.83-.369.931.931,0,0,1,.5.15.994.994,0,0,1,.358.358Z" transform="translate(-1.5 -3.5)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                    </svg> Keywords/Terms </a>
+                  <a href="#" class="relative transition-all text-black-100 text-opacity-80  hover:text-[#12432F] duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-base font-semibold rounded-[15px] rounded-r-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23.219" height="21" viewBox="0 0 23.219 21">
+                      <path id="workspaces_FILL0_wght400_GRAD0_opsz48" d="M8.161,25.95A4.12,4.12,0,0,1,4,21.789a4.12,4.12,0,0,1,4.161-4.161,4.12,4.12,0,0,1,4.161,4.161A4.12,4.12,0,0,1,8.161,25.95Zm13.9,0A4.12,4.12,0,0,1,17.9,21.789a4.12,4.12,0,0,1,4.161-4.161,4.12,4.12,0,0,1,4.161,4.161,4.12,4.12,0,0,1-4.161,4.161Zm-13.9-1.664A2.5,2.5,0,1,0,6.4,20.028a2.5,2.5,0,0,0,1.761,4.258Zm13.9,0a2.51,2.51,0,1,0-1.761-.735A2.4,2.4,0,0,0,22.058,24.286ZM15.123,14.272a4.12,4.12,0,0,1-4.161-4.161A4.12,4.12,0,0,1,15.123,5.95a4.12,4.12,0,0,1,4.161,4.161,4.12,4.12,0,0,1-4.161,4.161Zm0-1.664a2.51,2.51,0,0,0,2.5-2.5,2.491,2.491,0,0,0-4.258-1.761,2.478,2.478,0,0,0,0,3.523A2.4,2.4,0,0,0,15.123,12.607ZM15.123,10.111ZM22.058,21.789ZM8.161,21.789Z" transform="translate(-3.5 -5.45)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                    </svg> Adgroups </a>
+                  <a href="#" class="relative transition-all text-black-100 text-opacity-80  hover:text-[#12432F] duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-base font-semibold rounded-[15px] rounded-r-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26.143" height="17" viewBox="0 0 26.143 17">
+                      <path id="join_inner_FILL0_wght400_GRAD0_opsz48" d="M14.571,24.571a1.076,1.076,0,0,1-.429-.086,1.5,1.5,0,0,1-.371-.229,7.586,7.586,0,0,1-2-2.743A9.113,9.113,0,0,1,11.143,18a8.934,8.934,0,0,1,.643-3.514A7.744,7.744,0,0,1,13.8,11.743a1.616,1.616,0,0,1,.357-.229.977.977,0,0,1,.414-.086,1.076,1.076,0,0,1,.429.086,1.5,1.5,0,0,1,.371.229,7.338,7.338,0,0,1,2,2.714A9.2,9.2,0,0,1,18,18a9.014,9.014,0,0,1-.643,3.543,7.487,7.487,0,0,1-2.014,2.714,1.616,1.616,0,0,1-.357.229.977.977,0,0,1-.414.086ZM19.143,26a7.824,7.824,0,0,1-3.286-.714,4.2,4.2,0,0,0,.7-.614q.329-.357.614-.7a8.959,8.959,0,0,0,.971.229,5.744,5.744,0,0,0,1,.086A6.292,6.292,0,0,0,25.429,18a6.268,6.268,0,0,0-6.286-6.286,6.866,6.866,0,0,0-1,.071A6.161,6.161,0,0,0,17.2,12q-.286-.343-.629-.714a3.417,3.417,0,0,0-.714-.6,7.233,7.233,0,0,1,1.571-.514A8.441,8.441,0,0,1,19.143,10a7.975,7.975,0,0,1,8,8,8,8,0,0,1-8,8ZM10,26a7.708,7.708,0,0,1-5.657-2.343A7.708,7.708,0,0,1,2,18a7.7,7.7,0,0,1,2.343-5.671A7.732,7.732,0,0,1,10,10a8.441,8.441,0,0,1,1.714.171,7.233,7.233,0,0,1,1.571.514,3.417,3.417,0,0,0-.714.6q-.343.371-.629.714A6.161,6.161,0,0,0,11,11.786a6.866,6.866,0,0,0-1-.071,6.079,6.079,0,0,0-4.443,1.829A6.041,6.041,0,0,0,3.714,18a6.055,6.055,0,0,0,1.843,4.443A6.055,6.055,0,0,0,10,24.286a5.744,5.744,0,0,0,1-.086,8.959,8.959,0,0,0,.971-.229q.286.343.614.7a4.2,4.2,0,0,0,.7.614A7.824,7.824,0,0,1,10,26Z" transform="translate(-1.5 -9.5)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                    </svg> Match Type </a>
+                  <a href="#" class="relative transition-all text-black-100 text-opacity-80  hover:text-[#12432F] duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-base font-semibold rounded-[15px] rounded-r-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14.5" height="20" viewBox="0 0 14.5 20">
+                      <path id="emoji_objects_FILL0_wght400_GRAD0_opsz48" d="M16.75,24a2.17,2.17,0,0,1-1.187-.325,1.474,1.474,0,0,1-.663-.9h-.35a1.538,1.538,0,0,1-1.5-1.5V17.7a7.892,7.892,0,0,1-2.6-2.75,7.369,7.369,0,0,1-.95-3.7,6.993,6.993,0,0,1,2.113-5.138A6.993,6.993,0,0,1,16.75,4a6.993,6.993,0,0,1,5.138,2.113A6.993,6.993,0,0,1,24,11.25a7.369,7.369,0,0,1-.95,3.7,7.892,7.892,0,0,1-2.6,2.75v3.575a1.538,1.538,0,0,1-1.5,1.5H18.6a1.474,1.474,0,0,1-.662.9A2.17,2.17,0,0,1,16.75,24Zm-2.2-2.725h4.4v-1.1h-4.4Zm0-2.1h4.4v-1h-4.4Zm-.225-2.5h1.85V13.25L14.25,11.325a.509.509,0,0,1-.15-.375.551.551,0,0,1,.175-.4.517.517,0,0,1,.775,0l1.7,1.725,1.725-1.725a.509.509,0,0,1,.375-.15.551.551,0,0,1,.4.175.489.489,0,0,1,0,.75L17.325,13.25v3.425h1.85A5.564,5.564,0,0,0,21.587,14.5a6.057,6.057,0,0,0,.913-3.25A5.678,5.678,0,0,0,16.75,5.5,5.678,5.678,0,0,0,11,11.25a6.057,6.057,0,0,0,.913,3.25A5.564,5.564,0,0,0,14.325,16.675ZM16.75,12.275ZM16.75,11.075Z" transform="translate(-9.5 -4)" fill="#26292c" opacity="0.8" />
+                    </svg> Creative Ads </a>
+                </nav>
+              </div>
+            </div>
+            <div class="w-14 flex-shrink-0" aria-hidden="true">             
+            </div>             
+          </div>
+        </div>
+        <!-- mobile view sidebar End -->
+
+        <!-- Static sidebar for desktop start-->
+        <div class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-80 lg:flex-col">
+          <div class="flex min-h-0 flex-1 flex-col  mt-[62%] shadow-md">
+            <div class="flex flex-1 flex-col overflow-y-auto">
+              <nav class="flex-1 space-y-1 pl-[60px] my-10 overflow-x-hidden account_table">
+                <a href="#" class="bg-[#12432F] text-white group flex gap-2 items-center px-5 py-5 text-lg font-semibold rounded-[15px] rounded-r-none">
+                  <svg class="flex-shrink-0 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                  </svg> Account </a>
+                <a href="#" class="relative transition-all !mt-2 text-black-100 text-opacity-80  hover:text-[#12432F] duration-500 before:transition-all before:duration-500
+               before:w-0 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border  group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-lg font-semibold rounded-[15px] rounded-r-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18.647" height="21" viewBox="0 0 18.647 21">
+                    <path id="flag_FILL0_wght400_GRAD0_opsz48" d="M10.882,28A.855.855,0,0,1,10,27.118V8.882A.855.855,0,0,1,10.882,8h8.5a.859.859,0,0,1,.559.191.83.83,0,0,1,.294.515l.412,1.824h6.118a.855.855,0,0,1,.882.882v9.118a.855.855,0,0,1-.882.882H20.824a.924.924,0,0,1-.544-.176.749.749,0,0,1-.309-.5l-.412-1.824H11.765v8.206a.855.855,0,0,1-.882.882ZM18.824,14.706Zm2.794,4.941h4.265V12.294H19.147l-.559-2.529H11.765v7.382h9.294Z" transform="translate(-9.5 -7.5)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                  </svg> Marketplace </a>
+                <a href="#" class="relative transition-all !mt-2 text-black-100 text-opacity-80  hover:text-[#12432F]  duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-lg font-semibold rounded-[15px] rounded-r-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
+                    <path id="group_work_FILL0_wght400_GRAD0_opsz48" d="M11.675,18a1.745,1.745,0,0,0,1.3-.538,1.841,1.841,0,0,0,0-2.575A1.716,1.716,0,0,0,11.7,14.35a1.786,1.786,0,0,0-1.312.538A1.825,1.825,0,0,0,11.675,18Zm4.65,0a1.835,1.835,0,1,0-1.288-.537A1.756,1.756,0,0,0,16.325,18ZM14,13.325a1.778,1.778,0,0,0,1.288-.525,1.825,1.825,0,1,0-2.575-2.587,1.826,1.826,0,0,0,0,2.587A1.778,1.778,0,0,0,14,13.325ZM14,24a9.676,9.676,0,0,1-3.875-.788,10.075,10.075,0,0,1-5.338-5.337,9.989,9.989,0,0,1,0-7.775,9.994,9.994,0,0,1,2.15-3.175,10.251,10.251,0,0,1,3.188-2.137,9.989,9.989,0,0,1,7.775,0A9.984,9.984,0,0,1,23.212,10.1a9.989,9.989,0,0,1,0,7.775,10.251,10.251,0,0,1-2.138,3.188,9.994,9.994,0,0,1-3.175,2.15A9.738,9.738,0,0,1,14,24Zm.025-1.5a8.15,8.15,0,0,0,6-2.487A8.242,8.242,0,0,0,22.5,13.975a8.171,8.171,0,0,0-2.475-6A8.2,8.2,0,0,0,14,5.5,8.212,8.212,0,0,0,7.988,7.975,8.179,8.179,0,0,0,5.5,14a8.191,8.191,0,0,0,2.488,6.013A8.22,8.22,0,0,0,14.025,22.5ZM14,14Z" transform="translate(-3.5 -3.5)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                  </svg> Campaign Groups </a>
+                <a href="#" class="relative transition-all !mt-2 text-black-100 text-opacity-80  hover:text-[#12432F]  duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-lg font-semibold rounded-[15px] rounded-r-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26.94" height="21.002" viewBox="0 0 26.94 21.002">
+                    <path id="campaign_FILL0_wght400_GRAD0_opsz48-3" d="M26.049,19.553a.973.973,0,1,1,0-1.946h2.918a.973.973,0,1,1,0,1.946Zm-.13,8.82-2.367-1.751a1.025,1.025,0,0,1-.389-.649.87.87,0,0,1,.195-.713,1.025,1.025,0,0,1,.649-.389.87.87,0,0,1,.713.195l2.367,1.751a1.025,1.025,0,0,1,.389.649.87.87,0,0,1-.195.713,1.025,1.025,0,0,1-.649.389A.87.87,0,0,1,25.92,28.372Zm-1.1-16.31a.87.87,0,0,1-.713.195,1.025,1.025,0,0,1-.649-.389.87.87,0,0,1-.195-.713,1.025,1.025,0,0,1,.389-.649l2.27-1.719a.87.87,0,0,1,.713-.195,1.025,1.025,0,0,1,.649.389.87.87,0,0,1,.195.713,1.025,1.025,0,0,1-.389.649Zm-16.6,15.6V22.471H5.946A1.937,1.937,0,0,1,4,20.526V16.634a1.937,1.937,0,0,1,1.946-1.946h5.837l5.026-3.016a.884.884,0,0,1,.973,0,.929.929,0,0,1,.486.843V24.644a.929.929,0,0,1-.486.843.884.884,0,0,1-.973,0l-5.026-3.016H10.161v5.188ZM11.134,18.58Zm8.431,4.345v-8.69a5.923,5.923,0,0,1,1.411,1.9,5.868,5.868,0,0,1,0,4.9A5.923,5.923,0,0,1,19.564,22.925Zm-3.243,0v-8.69l-4.021,2.4H5.946v3.891H12.3Z" transform="translate(-3.5 -8.079)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                  </svg> Campaigns </a>
+                <a href="#" class="relative transition-all !mt-2 text-black-100 text-opacity-80  hover:text-[#12432F]  duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-lg font-semibold rounded-[15px] rounded-r-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="14.636" viewBox="0 0 26 14.636">
+                    <path id="vpn_key_FILL0_wght400_GRAD0_opsz48" d="M8.818,25.636a6.575,6.575,0,0,1-4.83-1.989A6.575,6.575,0,0,1,2,18.818a6.575,6.575,0,0,1,1.989-4.83A6.575,6.575,0,0,1,8.818,12a6.346,6.346,0,0,1,3.736,1.065,6.4,6.4,0,0,1,2.259,2.827H25.3A1.7,1.7,0,0,1,27,17.6V20.04a1.7,1.7,0,0,1-1.7,1.7H23.989v2.188a1.7,1.7,0,0,1-1.7,1.7H20.409a1.7,1.7,0,0,1-1.7-1.7V21.744H14.812a6.4,6.4,0,0,1-2.259,2.827A6.346,6.346,0,0,1,8.818,25.636Zm0-1.7a4.406,4.406,0,0,0,3.31-1.335,5.207,5.207,0,0,0,1.52-2.557h6.875v3.892h1.761V20.04H25.3V17.6H13.648a5.207,5.207,0,0,0-1.52-2.557A4.406,4.406,0,0,0,8.818,13.7,4.931,4.931,0,0,0,5.2,15.2a5.144,5.144,0,0,0,0,7.244A4.931,4.931,0,0,0,8.818,23.932Zm0-3.182a1.932,1.932,0,1,0,0-3.864,1.932,1.932,0,1,0,0,3.864ZM8.818,18.818Z" transform="translate(-1.5 -11.5)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                  </svg> Keywords </a>
+                <a href="#" class="relative transition-all !mt-2 text-black-100 text-opacity-80  hover:text-[#12432F]  duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-lg font-semibold rounded-[15px] rounded-r-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="21.028" height="21" viewBox="0 0 21.028 21">
+                    <path id="search_FILL0_wght400_GRAD0_opsz48" d="M24.5,25.7l-6.818-6.818a6.234,6.234,0,0,1-1.98,1.146,7,7,0,0,1-2.4.41,7.044,7.044,0,0,1-5.177-2.122A6.977,6.977,0,0,1,6,13.192a6.977,6.977,0,0,1,2.122-5.12A7.01,7.01,0,0,1,13.27,5.95a6.931,6.931,0,0,1,5.106,2.122,7.24,7.24,0,0,1,1.711,7.468A7.18,7.18,0,0,1,18.9,17.661l6.874,6.818a.741.741,0,0,1,.255.58.879.879,0,0,1-.283.636.888.888,0,0,1-1.245,0ZM13.27,18.736a5.294,5.294,0,0,0,3.9-1.627,5.364,5.364,0,0,0,1.612-3.918,5.364,5.364,0,0,0-1.612-3.918,5.294,5.294,0,0,0-3.9-1.627A5.373,5.373,0,0,0,9.324,9.274,5.34,5.34,0,0,0,7.7,13.192,5.34,5.34,0,0,0,9.324,17.11,5.373,5.373,0,0,0,13.27,18.736Z" transform="translate(-5.5 -5.45)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                  </svg> Search Terms </a>
+                <a href="#" class="relative transition-all !mt-2 text-black-100 text-opacity-80  hover:text-[#12432F]  duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-lg font-semibold rounded-[15px] rounded-r-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="21.003" height="19.453" viewBox="0 0 21.003 19.453">
+                    <path id="translate_FILL0_wght400_GRAD0_opsz48" d="M13.326,22.453a.877.877,0,0,1-.773-.346.888.888,0,0,1-.058-.853l3.391-9a1.312,1.312,0,0,1,.507-.623,1.327,1.327,0,0,1,.761-.254,1.38,1.38,0,0,1,.773.254,1.3,1.3,0,0,1,.519.623l3.46,8.9a.883.883,0,0,1-.9,1.292.832.832,0,0,1-.484-.161.855.855,0,0,1-.323-.415l-.761-2.33H15.01L14.133,21.9a.873.873,0,0,1-.323.392.832.832,0,0,1-.484.161Zm2.191-4.521h3.275l-1.615-4.475h-.046ZM7.744,10.043A12.607,12.607,0,0,0,8.5,11.208q.415.565.9,1.165a12.477,12.477,0,0,0,1.73-2.249,15.769,15.769,0,0,0,1.176-2.434H2.923a.923.923,0,1,1,0-1.845H8.459V4.923a.923.923,0,1,1,1.845,0v.923H15.84a.923.923,0,1,1,0,1.845H14.156a17.6,17.6,0,0,1-1.349,3.126,16.126,16.126,0,0,1-2.064,2.918L13,16.018l-.692,1.868L9.381,15.072,5.391,19.063a.847.847,0,0,1-.623.254.812.812,0,0,1-.623-.277.812.812,0,0,1-.277-.623.885.885,0,0,1,.277-.646l4.06-4.06q-.6-.715-1.13-1.442a16.4,16.4,0,0,1-.969-1.488.828.828,0,0,1-.046-.877.9.9,0,0,1,.83-.369.931.931,0,0,1,.5.15.994.994,0,0,1,.358.358Z" transform="translate(-1.5 -3.5)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                  </svg> Keywords/Terms </a>
+                <a href="#" class="relative transition-all !mt-2 text-black-100 text-opacity-80  hover:text-[#12432F]  duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-lg font-semibold rounded-[15px] rounded-r-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="23.219" height="21" viewBox="0 0 23.219 21">
+                    <path id="workspaces_FILL0_wght400_GRAD0_opsz48" d="M8.161,25.95A4.12,4.12,0,0,1,4,21.789a4.12,4.12,0,0,1,4.161-4.161,4.12,4.12,0,0,1,4.161,4.161A4.12,4.12,0,0,1,8.161,25.95Zm13.9,0A4.12,4.12,0,0,1,17.9,21.789a4.12,4.12,0,0,1,4.161-4.161,4.12,4.12,0,0,1,4.161,4.161,4.12,4.12,0,0,1-4.161,4.161Zm-13.9-1.664A2.5,2.5,0,1,0,6.4,20.028a2.5,2.5,0,0,0,1.761,4.258Zm13.9,0a2.51,2.51,0,1,0-1.761-.735A2.4,2.4,0,0,0,22.058,24.286ZM15.123,14.272a4.12,4.12,0,0,1-4.161-4.161A4.12,4.12,0,0,1,15.123,5.95a4.12,4.12,0,0,1,4.161,4.161,4.12,4.12,0,0,1-4.161,4.161Zm0-1.664a2.51,2.51,0,0,0,2.5-2.5,2.491,2.491,0,0,0-4.258-1.761,2.478,2.478,0,0,0,0,3.523A2.4,2.4,0,0,0,15.123,12.607ZM15.123,10.111ZM22.058,21.789ZM8.161,21.789Z" transform="translate(-3.5 -5.45)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                  </svg> Adgroups </a>
+                <a href="#" class="relative transition-all !mt-2 text-black-100 text-opacity-80  hover:text-[#12432F]  duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-lg font-semibold rounded-[15px] rounded-r-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26.143" height="17" viewBox="0 0 26.143 17">
+                    <path id="join_inner_FILL0_wght400_GRAD0_opsz48" d="M14.571,24.571a1.076,1.076,0,0,1-.429-.086,1.5,1.5,0,0,1-.371-.229,7.586,7.586,0,0,1-2-2.743A9.113,9.113,0,0,1,11.143,18a8.934,8.934,0,0,1,.643-3.514A7.744,7.744,0,0,1,13.8,11.743a1.616,1.616,0,0,1,.357-.229.977.977,0,0,1,.414-.086,1.076,1.076,0,0,1,.429.086,1.5,1.5,0,0,1,.371.229,7.338,7.338,0,0,1,2,2.714A9.2,9.2,0,0,1,18,18a9.014,9.014,0,0,1-.643,3.543,7.487,7.487,0,0,1-2.014,2.714,1.616,1.616,0,0,1-.357.229.977.977,0,0,1-.414.086ZM19.143,26a7.824,7.824,0,0,1-3.286-.714,4.2,4.2,0,0,0,.7-.614q.329-.357.614-.7a8.959,8.959,0,0,0,.971.229,5.744,5.744,0,0,0,1,.086A6.292,6.292,0,0,0,25.429,18a6.268,6.268,0,0,0-6.286-6.286,6.866,6.866,0,0,0-1,.071A6.161,6.161,0,0,0,17.2,12q-.286-.343-.629-.714a3.417,3.417,0,0,0-.714-.6,7.233,7.233,0,0,1,1.571-.514A8.441,8.441,0,0,1,19.143,10a7.975,7.975,0,0,1,8,8,8,8,0,0,1-8,8ZM10,26a7.708,7.708,0,0,1-5.657-2.343A7.708,7.708,0,0,1,2,18a7.7,7.7,0,0,1,2.343-5.671A7.732,7.732,0,0,1,10,10a8.441,8.441,0,0,1,1.714.171,7.233,7.233,0,0,1,1.571.514,3.417,3.417,0,0,0-.714.6q-.343.371-.629.714A6.161,6.161,0,0,0,11,11.786a6.866,6.866,0,0,0-1-.071,6.079,6.079,0,0,0-4.443,1.829A6.041,6.041,0,0,0,3.714,18a6.055,6.055,0,0,0,1.843,4.443A6.055,6.055,0,0,0,10,24.286a5.744,5.744,0,0,0,1-.086,8.959,8.959,0,0,0,.971-.229q.286.343.614.7a4.2,4.2,0,0,0,.7.614A7.824,7.824,0,0,1,10,26Z" transform="translate(-1.5 -9.5)" fill="#26292c" stroke="rgba(0,0,0,0)" stroke-width="1" opacity="0.8" />
+                  </svg> Match Type </a>
+                <a href="#" class="relative transition-all !mt-2 text-black-100 text-opacity-80  hover:text-[#12432F]  duration-500 before:transition-all before:duration-500 hover:before:w-full hover:before:bg-[#12432F] before:h-[2px] before:absolute before:bottom-0 brfore:border before:w-0 group flex gap-2 items-center px-5 py-5 pb-3 mb-2 text-lg font-semibold rounded-[15px] rounded-r-none">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14.5" height="20" viewBox="0 0 14.5 20">
+                    <path id="emoji_objects_FILL0_wght400_GRAD0_opsz48" d="M16.75,24a2.17,2.17,0,0,1-1.187-.325,1.474,1.474,0,0,1-.663-.9h-.35a1.538,1.538,0,0,1-1.5-1.5V17.7a7.892,7.892,0,0,1-2.6-2.75,7.369,7.369,0,0,1-.95-3.7,6.993,6.993,0,0,1,2.113-5.138A6.993,6.993,0,0,1,16.75,4a6.993,6.993,0,0,1,5.138,2.113A6.993,6.993,0,0,1,24,11.25a7.369,7.369,0,0,1-.95,3.7,7.892,7.892,0,0,1-2.6,2.75v3.575a1.538,1.538,0,0,1-1.5,1.5H18.6a1.474,1.474,0,0,1-.662.9A2.17,2.17,0,0,1,16.75,24Zm-2.2-2.725h4.4v-1.1h-4.4Zm0-2.1h4.4v-1h-4.4Zm-.225-2.5h1.85V13.25L14.25,11.325a.509.509,0,0,1-.15-.375.551.551,0,0,1,.175-.4.517.517,0,0,1,.775,0l1.7,1.725,1.725-1.725a.509.509,0,0,1,.375-.15.551.551,0,0,1,.4.175.489.489,0,0,1,0,.75L17.325,13.25v3.425h1.85A5.564,5.564,0,0,0,21.587,14.5a6.057,6.057,0,0,0,.913-3.25A5.678,5.678,0,0,0,16.75,5.5,5.678,5.678,0,0,0,11,11.25a6.057,6.057,0,0,0,.913,3.25A5.564,5.564,0,0,0,14.325,16.675ZM16.75,12.275ZM16.75,11.075Z" transform="translate(-9.5 -4)" fill="#26292c" opacity="0.8" />
+                  </svg> Creative Ads </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <!-- Static sidebar for desktop end -->
+        <div class="flex flex-1 flex-col ">
+          <header class="bg-white dark:bg-green-900 border-b !border-b-grey-grey100 border-opacity-90 fixed w-full z-10">
+            <div class="px-2 sm:px-6 lg:px-[60px] md:pt-12 md:pb-10 py-5" style="box-shadow: 0rem .125rem .8125rem #01222C33;">
+              <div class="flex items-start flex-wrap gap-x-4">
+                <button type="button" class="lg:hidden block px-2" @click="open = true">                 
+                  <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#12432F" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                  </svg>
+                </button>
+                <img class="h-5 sm:w-auto w-6" src="/img/flag.png" alt="Fit Fitaly" />
+                <span class="font-semibold sm:text-3xl !leading-7 text-lg text-black-100  opacity-90">Fit Fitaly</span>
+                <div class="p-[6px] border border-opacity-0  hover:border-opacity-100 rounded-full border-[#f0f7f5] shadow-sm bg-white">                  
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" class=" " id="magicoon-Regular" xmlns="http://www.w3.org/2000/svg">
+                    <defs>                      
+                    </defs>                    
+                    <g id="chevron-down-Regular">
+                      <path id="chevron-down-Regular-2" data-name="chevron-down-Regular" class="cls-1" d="M21.53,8.53l-9,9a.748.748,0,0,1-1.06,0l-9-9A.75.75,0,0,1,3.53,7.47L12,15.939,20.47,7.47a.75.75,0,0,1,1.06,1.06Z" />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </header>
+          
+          <div class="flex flex-col lg:pl-80">
+            <main class="flex-1">
+              <div class="md:py-[60px] py-10">                
+                <div class="bg-white dark:bg-green-900">
+                  <div class="mx-auto max-w-[1484px] w-full md:px-5 px-4 md:pt-[122px] pt-[74px]">
+                    <div class="flex xl:items-center justify-between gap-4 xl:flex-row flex-col items-start">
+                      <div class="flex flex-col gap-y-[10px]">
+                        <Span class="text-xs text-[#595C6D] font-bold ">Select period</Span>
+                        <span class="isolate inline-flex rounded-xl shadow-sm">
+                          <button type="button" class="relative flex-wrap flex items-center rounded-l-xl bg-green-700 px-4 py-3.5 text-sm font-semibold text-gray-200 focus:z-10 focus:outline-none"> All time </button>
+                          <button type="button" class="relative inline-flex transition-all duration-300  flex-wrap items-center bg-gray-100 dark:bg-green-800 sm:px-4 px-2 py-3.5 text-sm font-semibold text-black-100 opacity-70 hover:bg-[#436a5b40] focus:z-10 focus:outline-none"> 1Y </button>
+                          <button type="button" class="relative inline-flex flex-wrap transition-all duration-300  items-center bg-gray-100 dark:bg-green-800 sm:px-4 px-2  py-3.5 text-sm font-semibold text-black-100 opacity-70 hover:bg-[#436a5b40] focus:z-10 focus:outline-none"> YTD </button>
+                          <button type="button" class="relative inline-flex transition-all duration-300  flex-wrap items-center bg-gray-100 dark:bg-green-800 sm:px-4 px-2  py-3.5 text-sm font-semibold text-black-100 opacity-70 hover:bg-[#436a5b40] focus:z-10 focus:outline-none"> 3M </button>
+                          <button type="button" class="relative inline-flex transition-all duration-300  flex-wrap items-center bg-gray-100 dark:bg-green-800 sm:px-4 px-2  py-3.5 text-sm font-semibold text-black-100 opacity-70 hover:bg-[#436a5b40] focus:z-10 focus:outline-none"> 1M </button>
+                          <button type="button" class="relative inline-flex transition-all duration-300  items-center rounded-r-xl bg-gray-100 dark:bg-green-800 sm:px-4 px-2  py-3.5 text-sm font-semibold text-black-100 opacity-70 hover:bg-[#436a5b40] focus:z-10 focus:outline-none"> Custom</button>
+                        </span>
+                      </div>
+                      <div>
+                        <label for="location" class="text-xs font-bold text-[#595C6D]">Select Filters</label>
+                        <div class="flex gap-5 flex-wrap mt-1">
+                          <div class="flex group relative  z-[7]">
+                            <div class="relative flex focus-within:z-10">
+                              <select id="location" name="location" class="!pr-2 select_sidebar group w-[110px] rounded-[15px] border bg-[#FAFAFA] border-[#23855E33] text-black-100 focus-visible:outline-none focus-visible:border-[#23855E33] focus:ring-0 py-3 pl-3 text-sm font-semibold">
+                                <option selected>Eur</option>
+                                <option>Canada</option>
+                                <option>Mexico</option>
+                              </select>
+                            </div>
+                            <button type="button" class="absolute right-0 top-0 z-10 pointer-events-none transition-all duration-300 group-hover:border-transparent inline-flex items-center py-[13px] space-x-2 rounded-r-[15px] border-l-transparent  px-4 text-xs font-semibold text-gray-700 border-opacity-0 border border-green-700 group-hover:bg-green-700">
+                              <span class="text-[#448369] group-hover:text-white transition-all duration-300">
+                                <svg width="18px" height="18px" class="group-hover:fill-white" viewBox="0 0 24 24" id="magicoon-Filled" xmlns="http://www.w3.org/2000/svg">                                 
+                                  <g id="chevron-down-Filled">
+                                    <path id="chevron-down-Filled-2" data-name="chevron-down-Filled" class="cls-1 group-hover:stroke-white group-hover:fill-white" d="M21.707,8.707l-9,9a1,1,0,0,1-1.414,0l-9-9A1,1,0,1,1,3.707,7.293L12,15.586l8.293-8.293a1,1,0,1,1,1.414,1.414Z" />
+                                  </g>
+                                </svg>
+                              </span>
+                            </button>
+                          </div>
+                          <div class="flex group relative z-[7]">
+                            <div class="relative flex focus-within:z-10">
+                              <select id="type" name="type" class="!pr-2 select_sidebar group w-[8.75rem] rounded-[15px] border bg-[#FAFAFA] border-[#23855E33] text-black-100 focus-visible:outline-none focus-visible:border-[#23855E33] focus:ring-0 py-3 pl-3 text-sm font-semibold">
+                                <option selected>Ad Type</option>
+                                <option>Canada</option>
+                                <option>Mexico</option>
+                              </select>
+                            </div>
+                            <button type="button" class=" absolute right-0 top-0 z-10 pointer-events-none transition-all duration-300 group-hover:border-transparent inline-flex items-center py-[13px] space-x-2 rounded-r-[15px] border-l-transparent dark:bg-green-800 order-green-700 border px-4 text-xs font-semibold group-hover:bg-green-700 dark:group-hover:bg-green-700">
+                              <span class="text-[#448369] group-hover:text-white">
+                                <svg width="18px" height="18px" class="group-hover:fill-white" viewBox="0 0 24 24" id="magicoon-Filled" xmlns="http://www.w3.org/2000/svg">                                     
+                                  <g id="chevron-down-Filled">
+                                    <path id="chevron-down-Filled-2" data-name="chevron-down-Filled" class="cls-1 group-hover:stroke-white group-hover:fill-white" d="M21.707,8.707l-9,9a1,1,0,0,1-1.414,0l-9-9A1,1,0,1,1,3.707,7.293L12,15.586l8.293-8.293a1,1,0,1,1,1.414,1.414Z" />
+                                  </g>
+                                </svg>
+                              </span>
+                            </button>
+                          </div>
+                          <div class="flex group relative z-[7]">
+                            <div class="relative flex focus-within:z-10">
+                              <select id="match_type" name="match_type" class="!pr-2 select_sidebar group 2xl:w-[10rem] w-[9.375rem] rounded-[15px] border bg-[#FAFAFA] border-[#23855E33] text-black-100 focus-visible:outline-none focus-visible:border-[#23855E33] focus:ring-0 py-3 pl-3 text-sm font-semibold">
+                                <option selected>Match Type</option>
+                                <option>Canada</option>
+                                <option>Mexico</option>
+                              </select>
+                            </div>
+                            <button type="button" class=" absolute right-0 top-0 z-10 pointer-events-none transition-all duration-300 group-hover:border-transparent inline-flex items-center py-[13px] space-x-2 rounded-r-[15px] border-l-transparent dark:bg-green-800 border-green-700 border-opacity-0 border px-4  group-hover:bg-green-700 ">
+                              <span class="text-[#448369] group-hover:text-white">
+                                <svg width="18px" height="18px" class="group-hover:fill-white" viewBox="0 0 24 24" id="magicoon-Filled" xmlns="http://www.w3.org/2000/svg">
+                                  <defs></defs>
+                                  <g id="chevron-down-Filled">
+                                    <path id="chevron-down-Filled-2" data-name="chevron-down-Filled" class="cls-1 group-hover:stroke-white group-hover:fill-white" d="M21.707,8.707l-9,9a1,1,0,0,1-1.414,0l-9-9A1,1,0,1,1,3.707,7.293L12,15.586l8.293-8.293a1,1,0,1,1,1.414,1.414Z" />
+                                  </g>
+                                </svg>
+                              </span>
+                            </button>
+                          </div>
+                          <div class="flex group relative z-[7]">
+                            <div class="relative flex focus-within:z-10">
+                              <select id="campaign_type" name="campaign_type" class="!pr-2 select_sidebar group w-[11.6875rem] rounded-[15px] border bg-[#FAFAFA] border-[#23855E33] text-black-100 focus-visible:outline-none focus-visible:border-[#23855E33] focus:ring-0 py-3 pl-3 text-sm font-semibold dark:group-hover:bg-green-700">
+                                <option selected>Campaign Type</option>
+                                <option>Canada</option>
+                                <option>Mexico</option>
+                              </select>
+                            </div>
+                            <button type="button" class="absolute right-0 top-0 z-10 pointer-events-none transition-all duration-300 inline-flex items-center py-[13px] space-x-2 rounded-r-[15px] border-l-transparent dark:bg-green-800 border-green-700 border-opacity-0 border px-4 group-hover:bg- group group-hover:bg-green-700">
+                              <span class="text-[#448369] group-hover:text-white">
+                                <svg width="18px" height="18px" class="group-hover:fill-white" viewBox="0 0 24 24" id="magicoon-Filled" xmlns="http://www.w3.org/2000/svg">
+                                  <defs></defs>
+                                  <g id="chevron-down-Filled">
+                                    <path id="chevron-down-Filled-2" data-name="chevron-down-Filled" class="cls-1 group-hover:stroke-white group-hover:fill-white" d="M21.707,8.707l-9,9a1,1,0,0,1-1.414,0l-9-9A1,1,0,1,1,3.707,7.293L12,15.586l8.293-8.293a1,1,0,1,1,1.414,1.414Z" />
+                                  </g>
+                                </svg>
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- ad sale box Start-->
+                    <section>
+                      <div class="grid xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 my-10 2xl:gap-14 gap-5">
+                        <div class="bg-[#F4F4F4] rounded-[15px] shadow-sm py-[22px] 2xl:px-[30px] lg:px-3 px-6">
+                          <div class="text-[#12432F] leading-tight font-semibold">
+                            <h3 class="text-[15px]">Ad Sales</h3>
+                            <div class="flex justify-between gap-1">
+                              <span class="md:text-[35px] text-2xl">3000</span>
+                              <div class="flex gap-2 items-center bg-gradient-to-r from-[#DAA42740]  to-[#78DBB480] border rounded-[19px] px-[15px] py-[10px]">
+                                <img src="img/upgreenarrow.svg" alt="" />
+                                <span class="text-xs font-bold">12%</span>
+                              </div>
+                            </div>
+                            <p class="text-[10px] font-medium">From 2988</p>
+                          </div>
+                        </div>
+                        <div class="bg-[#F4F4F4] rounded-[15px] shadow-sm py-[22px] 2xl:px-[30px] lg:px-3 px-6">
+                          <div class="text-[#12432F] leading-tight font-semibold">
+                            <h3 class="text-[15px]">ACoS</h3>
+                            <div class="flex justify-between gap-1">
+                              <span class="md:text-[35px] text-2xl">30%</span>
+                              <div class="flex gap-2 items-center bg-gradient-to-r from-[#DAA42740]  to-[#78DBB480] border rounded-[19px] px-[15px] py-[10px]">
+                                <img src="img/upgreenarrow.svg" alt="" />
+                                <span class="text-xs font-bold">12%</span>
+                              </div>
+                            </div>
+                            <p class="text-[10px] font-medium">From 12%</p>
+                          </div>
+                        </div>
+                        <div class="bg-[#F4F4F4] rounded-[15px] shadow-sm py-[22px] 2xl:px-[30px] lg:px-3 px-6">
+                          <div class="text-[#12432F] leading-tight font-semibold">
+                            <h3 class="text-[15px]">Conversion Rate</h3>
+                            <div class="flex justify-between gap-1">
+                              <span class="md:text-[35px] text-2xl">30%</span>
+                              <div class="flex gap-2 items-center bg-gradient-to-r from-[#ED7DBB70]  to-[#C686EC60] border rounded-[19px] px-[15px] py-[10px]">
+                                <img src="img/upgreenarrow.svg" alt="" class="transform rotate-180" />
+                                <span class="text-xs font-bold">12%</span>
+                              </div>
+                            </div>
+                            <p class="text-[10px] font-medium">From 54%</p>
+                          </div>
+                        </div>
+                        <div class="bg-[#F4F4F4] rounded-[15px] shadow-sm py-[22px] 2xl:px-[30px] lg:px-3 px-6">
+                          <div class="text-[#12432F] leading-tight font-semibold">
+                            <h3 class="text-[15px]">CTR</h3>
+                            <div class="flex justify-between gap-1">
+                              <span class="md:text-[35px] text-2xl">30%</span>
+                              <div class="flex gap-2 items-center bg-gradient-to-r from-[#DAA42740]  to-[#78DBB480] border rounded-[19px] px-[15px] py-[10px]">
+                                <img src="img/upgreenarrow.svg" alt="" />
+                                <span class="text-xs font-bold">12%</span>
+                              </div>
+                            </div>
+                            <p class="text-[10px] font-medium">From 12%</p>
+                          </div>
+                        </div>
+                        <div class="bg-[#F4F4F4] rounded-[15px] shadow-sm py-[22px] 2xl:px-[30px] lg:px-3 px-6">
+                          <div class="text-[#12432F] leading-tight font-semibold">
+                            <h3 class="text-[15px]">CPC</h3>
+                            <div class="flex justify-between gap-1">
+                              <span class="md:text-[35px] text-2xl">1.5</span>
+                              <div class="flex gap-2 items-center bg-gradient-to-r from-[#ED7DBB70]  to-[#C686EC60] border rounded-[19px] px-[15px] py-[10px]">
+                                <img src="img/upgreenarrow.svg" alt="" class="transform rotate-180" />
+                                <span class="text-xs font-bold">12%</span>
+                              </div>
+                            </div>
+                            <p class="text-[10px] font-medium">From 7.3</p>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                    <!-- ad sale box End-->
+                    <div class="overflow-x-auto mt-8">
+                      <div class="inline-block min-w-full align-middle">
+                        <!-- table start -->
+                        <div class="account_table overflow-hidden border border-transparent rounded-tl-[15px] rounded-tr-[15px] overflow-y-auto h-full max-h-[500px]">
+                          <table class=" lg:min-w-full w-[1350px]">
+                            <thead class="relative bg-[#FAFAFA]" style="z-index: 1; box-shadow: 0px 1px 6px #262C281A;">
+                              <tr>
+                                <th class="pl-10 lg:py-7 py-5 pr-5 sticky top-0 bg-[#FAFAFA] text-left md:text-[15px] text-sm font-medium text-black-100" scope="col">
+                                 Accounts
+                                </th>
+                                <th class="px-5 pr-10 lg:py-7 py-5 sticky top-0 bg-[#FAFAFA] md:text-[15px] text-sm font-medium text-black-100" scope="col">
+                                  View AS
+                                </th>
+                                <th class="px-5 lg:py-7 py-5 sticky top-0 bg-[#FAFAFA] md:text-[15px] text-sm font-medium  text-[#595C6D]" scope="col">
+                                 Impressions
+                                </th>
+                                <th class="px-5 lg:py-7 py-5 sticky top-0 bg-[#FAFAFA] md:text-[15px] text-sm font-medium  text-[#595C6D]" scope="col">
+                                  Click
+                                </th>
+                                <th class="px-5 lg:py-7 py-5 sticky top-0 bg-[#FAFAFA] md:text-[15px] text-sm font-medium  text-[#595C6D]" scope="col">
+                                  Orders
+                                </th>
+                                <th class="px-5 lg:py-7 py-5 sticky top-0 bg-[#FAFAFA] md:text-[15px] text-sm font-medium  text-[#595C6D]" scope="col">
+                                 CPC
+                                </th>
+                                <th class="px-5 lg:py-7 py-5 sticky top-0 bg-[#FAFAFA] md:text-[15px] text-sm font-medium  text-[#595C6D]" scope="col">
+                                 CTR
+                                </th>
+                                <th class="px-5 lg:py-7 py-5 sticky top-0 bg-[#FAFAFA] md:text-[15px] text-sm font-medium  text-[#595C6D]" scope="col">
+                                 Spend
+                                </th>
+                                <th class="px-5 lg:py-7 py-5 sticky top-0 bg-[#FAFAFA] md:text-[15px] text-sm font-medium text-[#595C6D]" scope="col">
+                                  ACos
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <div>
+                                <tr class="even:bg-[#f0f7f5] odd:bg-[#fafafa]">
+                                  <td class="max-w-[184px] md:pl-10 pl-5 pr-3 md:pt-7 md:pb-5 py-2 md:text-lg text-base font-bold text-black-100 opacity-70"> Account Name </td>
+                                  <td class="flex gap-x-5 justify-center mt-[15px] md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                                    <div class="group transition-all duration-300">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto svg_round" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+                                        <defs>
+                                          <filter id="Rettangolo_2057" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+                                            <feOffset input="SourceAlpha" />
+                                            <feGaussianBlur stdDeviation="1" result="blur" />
+                                            <feFlood flood-color="#595c6d" flood-opacity="0.2" />
+                                            <feComposite operator="in" in2="blur" />
+                                            <feComposite in="SourceGraphic" />
+                                          </filter>
+                                        </defs>
+                                        <g id="chart_view_btn" data-name="chart view btn" transform="translate(3 3)">
+                                          <text id="Chart_View" data-name="Chart
+                                    View" transform="translate(20 18)" fill="#26292c" font-size="10" font-family="Montserrat-Bold, Montserrat" font-weight="700" opacity="0.8">
+                                            <tspan x="-18" y="0">CHART</tspan>
+                                            <tspan x="-14" y="12">VIEW</tspan>
+                                          </text>
+                                          <rect id="Rettangolo_2056" data-name="Rettangolo 2056" width="40" height="40" rx="20" fill="#fafafa" />
+                                          <g transform="matrix(1, 0, 0, 1, -3, -3)" filter="url(#Rettangolo_2057)">
+                                            <g id="Rettangolo_2057-2" data-name="Rettangolo 2057" transform="translate(3 3)" fill="#fff" stroke="rgba(35,133,94,0.2)" stroke-width="1" class="group-hover:opacity-100" opacity="0">
+                                              <rect width="40" height="40" rx="20" stroke="none" />
+                                              <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="none" />
+                                            </g>
+                                          </g>
+                                          <path id="query_stats_FILL0_wght400_GRAD0_opsz48" d="M22.314,24.424l-2.776-2.752a4.1,4.1,0,0,1-1.118.565,3.972,3.972,0,0,1-1.241.2A4.152,4.152,0,0,1,13,18.258a4.152,4.152,0,0,1,4.176-4.176,4.152,4.152,0,0,1,4.176,4.176,3.759,3.759,0,0,1-.209,1.241,5.446,5.446,0,0,1-.553,1.142l2.752,2.752a.754.754,0,0,1,.233.516.665.665,0,0,1-.209.516.741.741,0,0,1-1.056,0ZM17.179,20.96A2.71,2.71,0,0,0,19.1,16.342a2.71,2.71,0,0,0-3.832,3.832A2.608,2.608,0,0,0,17.179,20.96Zm-14.347-1.6a.687.687,0,0,1-.295-.467.772.772,0,0,1,.1-.54l3.71-5.921a.693.693,0,0,1,.577-.344.74.74,0,0,1,.626.246l2.285,2.678L13.15,9.659a.72.72,0,0,1,1.228-.025l2.039,3.022a4.655,4.655,0,0,0-.762.16q-.369.111-.737.258l-1.106-1.7L10.6,16.636a.693.693,0,0,1-.577.344.74.74,0,0,1-.626-.246l-2.309-2.7-3.194,5.11a.759.759,0,0,1-.479.344A.674.674,0,0,1,2.832,19.363ZM19,12.9a3.066,3.066,0,0,0-.762-.2l-.811-.1,4.84-7.616a.724.724,0,0,1,1.056-.2.733.733,0,0,1,.307.467.668.668,0,0,1-.111.54Z" transform="translate(6.475 5.355)" fill="#26292c" opacity="0.8" />
+                                        </g>
+                                      </svg>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">CHART VIEW</span>
+                                    </div>
+                                    <div class="group transition-all duration-300 ">
+                                      <div class="border border-opacity-0 border-transparent group-hover:border-opacity-100  group-hover:border-[#78DBB450] group-hover:shadow-sm group-hover:bg-white rounded-full p-2 w-10 h-10">
+                                        <svg width="20px" height="20px" viewBox="0 0 21 21" class="mx-auto" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" transform="translate(2 2)"><path d="m2.5.5h12.0269119c1.1045695 0 2 .8954305 2 2v11.9907459c0 1.0543618-.8158778 1.9181651-1.8507376 1.9945143l-.1588615.0054627-12.02691193-.0577246c-1.10080997-.0052835-1.99040087-.8991544-1.99040087-1.999977v-11.9330213c0-1.1045695.8954305-2 2-2z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="m.5 4.5h16.027" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="8.5" fill="currentColor" r="1"/></g></svg>
+                                      </div>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">DAILY VIEW</span>
+                                    </div>
+                                  </td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 17,468,004</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 23</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 71</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5  md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 16€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 18%</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 130€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2  px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 20%</td>
+                                </tr>
+                                <tr class="even:bg-[#f0f7f5] odd:bg-[#fafafa]">
+                                  <td class="max-w-[184px] md:pl-10 pl-5 pr-3 md:pt-7 md:pb-5 py-2 md:text-lg text-base font-bold text-black-100 opacity-70"> Account Name </td>
+                                  <td class="flex gap-x-5 justify-center items-center mt-[15px] md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                                    <div class="group transition-all duration-300">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto svg_round" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+                                        <defs>
+                                          <filter id="Rettangolo_2057" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+                                            <feOffset input="SourceAlpha" />
+                                            <feGaussianBlur stdDeviation="1" result="blur" />
+                                            <feFlood flood-color="#595c6d" flood-opacity="0.2" />
+                                            <feComposite operator="in" in2="blur" />
+                                            <feComposite in="SourceGraphic" />
+                                          </filter>
+                                        </defs>
+                                        <g id="chart_view_btn" data-name="chart view btn" transform="translate(3 3)">
+                                          <text id="Chart_View" data-name="Chart
+                                    View" transform="translate(20 18)" fill="#26292c" font-size="10" font-family="Montserrat-Bold, Montserrat" font-weight="700" opacity="0.8">
+                                            <tspan x="-18" y="0">CHART</tspan>
+                                            <tspan x="-14" y="12">VIEW</tspan>
+                                          </text>
+                                          <rect id="Rettangolo_2056" data-name="Rettangolo 2056" width="40" height="40" rx="20" fill="#fafafa" />
+                                          <g transform="matrix(1, 0, 0, 1, -3, -3)" filter="url(#Rettangolo_2057)">
+                                            <g id="Rettangolo_2057-2" data-name="Rettangolo 2057" transform="translate(3 3)" fill="#fff" stroke="rgba(35,133,94,0.2)" stroke-width="1" class="group-hover:opacity-100" opacity="0">
+                                              <rect width="40" height="40" rx="20" stroke="none" />
+                                              <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="none" />
+                                            </g>
+                                          </g>
+                                          <path id="query_stats_FILL0_wght400_GRAD0_opsz48" d="M22.314,24.424l-2.776-2.752a4.1,4.1,0,0,1-1.118.565,3.972,3.972,0,0,1-1.241.2A4.152,4.152,0,0,1,13,18.258a4.152,4.152,0,0,1,4.176-4.176,4.152,4.152,0,0,1,4.176,4.176,3.759,3.759,0,0,1-.209,1.241,5.446,5.446,0,0,1-.553,1.142l2.752,2.752a.754.754,0,0,1,.233.516.665.665,0,0,1-.209.516.741.741,0,0,1-1.056,0ZM17.179,20.96A2.71,2.71,0,0,0,19.1,16.342a2.71,2.71,0,0,0-3.832,3.832A2.608,2.608,0,0,0,17.179,20.96Zm-14.347-1.6a.687.687,0,0,1-.295-.467.772.772,0,0,1,.1-.54l3.71-5.921a.693.693,0,0,1,.577-.344.74.74,0,0,1,.626.246l2.285,2.678L13.15,9.659a.72.72,0,0,1,1.228-.025l2.039,3.022a4.655,4.655,0,0,0-.762.16q-.369.111-.737.258l-1.106-1.7L10.6,16.636a.693.693,0,0,1-.577.344.74.74,0,0,1-.626-.246l-2.309-2.7-3.194,5.11a.759.759,0,0,1-.479.344A.674.674,0,0,1,2.832,19.363ZM19,12.9a3.066,3.066,0,0,0-.762-.2l-.811-.1,4.84-7.616a.724.724,0,0,1,1.056-.2.733.733,0,0,1,.307.467.668.668,0,0,1-.111.54Z" transform="translate(6.475 5.355)" fill="#26292c" opacity="0.8" />
+                                        </g>
+                                      </svg>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">CHART VIEW</span>
+                                    </div>
+                                    <div class="group transition-all duration-300 ">
+                                      <div class="border border-opacity-0 bg-[#fafafa] border-transparent group-hover:border-opacity-100  group-hover:border-[#78DBB450] group-hover:shadow-sm group-hover:bg-white rounded-full p-2 w-10 h-10">
+                                        <svg width="20px" height="20px" viewBox="0 0 21 21" class="mx-auto" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" transform="translate(2 2)"><path d="m2.5.5h12.0269119c1.1045695 0 2 .8954305 2 2v11.9907459c0 1.0543618-.8158778 1.9181651-1.8507376 1.9945143l-.1588615.0054627-12.02691193-.0577246c-1.10080997-.0052835-1.99040087-.8991544-1.99040087-1.999977v-11.9330213c0-1.1045695.8954305-2 2-2z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="m.5 4.5h16.027" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="8.5" fill="currentColor" r="1"/></g></svg>
+                                      </div>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">DAILY VIEW</span>
+                                    </div>
+                                  </td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 17,468,004</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 23</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 71</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5  md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 16€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 18%</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 130€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2  px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 20%</td>
+                                </tr>
+                                <tr class="even:bg-[#f0f7f5] odd:bg-[#fafafa]">
+                                  <td class="max-w-[184px] md:pl-10 pl-5 pr-3 md:pt-7 md:pb-5 py-2 md:text-lg text-base font-bold text-black-100 opacity-70"> Account Name </td>
+                                  <td class="flex gap-x-5 justify-center items-center mt-[15px] md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                                    <div class="group transition-all duration-300">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto svg_round" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+                                        <defs>
+                                          <filter id="Rettangolo_2057" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+                                            <feOffset input="SourceAlpha" />
+                                            <feGaussianBlur stdDeviation="1" result="blur" />
+                                            <feFlood flood-color="#595c6d" flood-opacity="0.2" />
+                                            <feComposite operator="in" in2="blur" />
+                                            <feComposite in="SourceGraphic" />
+                                          </filter>
+                                        </defs>
+                                        <g id="chart_view_btn" data-name="chart view btn" transform="translate(3 3)">
+                                          <text id="Chart_View" data-name="Chart
+                                    View" transform="translate(20 18)" fill="#26292c" font-size="10" font-family="Montserrat-Bold, Montserrat" font-weight="700" opacity="0.8">
+                                            <tspan x="-18" y="0">CHART</tspan>
+                                            <tspan x="-14" y="12">VIEW</tspan>
+                                          </text>
+                                          <rect id="Rettangolo_2056" data-name="Rettangolo 2056" width="40" height="40" rx="20" fill="#fafafa" />
+                                          <g transform="matrix(1, 0, 0, 1, -3, -3)" filter="url(#Rettangolo_2057)">
+                                            <g id="Rettangolo_2057-2" data-name="Rettangolo 2057" transform="translate(3 3)" fill="#fff" stroke="rgba(35,133,94,0.2)" stroke-width="1" class="group-hover:opacity-100" opacity="0">
+                                              <rect width="40" height="40" rx="20" stroke="none" />
+                                              <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="none" />
+                                            </g>
+                                          </g>
+                                          <path id="query_stats_FILL0_wght400_GRAD0_opsz48" d="M22.314,24.424l-2.776-2.752a4.1,4.1,0,0,1-1.118.565,3.972,3.972,0,0,1-1.241.2A4.152,4.152,0,0,1,13,18.258a4.152,4.152,0,0,1,4.176-4.176,4.152,4.152,0,0,1,4.176,4.176,3.759,3.759,0,0,1-.209,1.241,5.446,5.446,0,0,1-.553,1.142l2.752,2.752a.754.754,0,0,1,.233.516.665.665,0,0,1-.209.516.741.741,0,0,1-1.056,0ZM17.179,20.96A2.71,2.71,0,0,0,19.1,16.342a2.71,2.71,0,0,0-3.832,3.832A2.608,2.608,0,0,0,17.179,20.96Zm-14.347-1.6a.687.687,0,0,1-.295-.467.772.772,0,0,1,.1-.54l3.71-5.921a.693.693,0,0,1,.577-.344.74.74,0,0,1,.626.246l2.285,2.678L13.15,9.659a.72.72,0,0,1,1.228-.025l2.039,3.022a4.655,4.655,0,0,0-.762.16q-.369.111-.737.258l-1.106-1.7L10.6,16.636a.693.693,0,0,1-.577.344.74.74,0,0,1-.626-.246l-2.309-2.7-3.194,5.11a.759.759,0,0,1-.479.344A.674.674,0,0,1,2.832,19.363ZM19,12.9a3.066,3.066,0,0,0-.762-.2l-.811-.1,4.84-7.616a.724.724,0,0,1,1.056-.2.733.733,0,0,1,.307.467.668.668,0,0,1-.111.54Z" transform="translate(6.475 5.355)" fill="#26292c" opacity="0.8" />
+                                        </g>
+                                      </svg>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">CHART VIEW</span>
+                                    </div>
+                                    <div class="group transition-all duration-300 ">
+                                      <div class="border border-opacity-0 bg-[#fafafa] border-transparent group-hover:border-opacity-100  group-hover:border-[#78DBB450] group-hover:shadow-sm group-hover:bg-white rounded-full p-2 w-10 h-10">
+                                        <svg width="20px" height="20px" viewBox="0 0 21 21" class="mx-auto" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" transform="translate(2 2)"><path d="m2.5.5h12.0269119c1.1045695 0 2 .8954305 2 2v11.9907459c0 1.0543618-.8158778 1.9181651-1.8507376 1.9945143l-.1588615.0054627-12.02691193-.0577246c-1.10080997-.0052835-1.99040087-.8991544-1.99040087-1.999977v-11.9330213c0-1.1045695.8954305-2 2-2z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="m.5 4.5h16.027" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="8.5" fill="currentColor" r="1"/></g></svg>
+                                      </div>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">DAILY VIEW</span>
+                                    </div>
+                                  </td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 17,468,004</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 23</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 71</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5  md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 16€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 18%</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 130€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2  px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 20%</td>
+                                </tr>
+                                <tr class="even:bg-[#f0f7f5] odd:bg-[#fafafa]">
+                                  <td class="max-w-[184px] md:pl-10 pl-5 pr-3 md:pt-7 md:pb-5 py-2 md:text-lg text-base font-bold text-black-100 opacity-70"> Account Name </td>
+                                  <td class="flex gap-x-5 items-center justify-center mt-[15px] md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                                    <div class="group transition-all duration-300">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto svg_round" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+                                        <defs>
+                                          <filter id="Rettangolo_2057" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+                                            <feOffset input="SourceAlpha" />
+                                            <feGaussianBlur stdDeviation="1" result="blur" />
+                                            <feFlood flood-color="#595c6d" flood-opacity="0.2" />
+                                            <feComposite operator="in" in2="blur" />
+                                            <feComposite in="SourceGraphic" />
+                                          </filter>
+                                        </defs>
+                                        <g id="chart_view_btn" data-name="chart view btn" transform="translate(3 3)">
+                                          <text id="Chart_View" data-name="Chart
+                                    View" transform="translate(20 18)" fill="#26292c" font-size="10" font-family="Montserrat-Bold, Montserrat" font-weight="700" opacity="0.8">
+                                            <tspan x="-18" y="0">CHART</tspan>
+                                            <tspan x="-14" y="12">VIEW</tspan>
+                                          </text>
+                                          <rect id="Rettangolo_2056" data-name="Rettangolo 2056" width="40" height="40" rx="20" fill="#fafafa" />
+                                          <g transform="matrix(1, 0, 0, 1, -3, -3)" filter="url(#Rettangolo_2057)">
+                                            <g id="Rettangolo_2057-2" data-name="Rettangolo 2057" transform="translate(3 3)" fill="#fff" stroke="rgba(35,133,94,0.2)" stroke-width="1" class="group-hover:opacity-100" opacity="0">
+                                              <rect width="40" height="40" rx="20" stroke="none" />
+                                              <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="none" />
+                                            </g>
+                                          </g>
+                                          <path id="query_stats_FILL0_wght400_GRAD0_opsz48" d="M22.314,24.424l-2.776-2.752a4.1,4.1,0,0,1-1.118.565,3.972,3.972,0,0,1-1.241.2A4.152,4.152,0,0,1,13,18.258a4.152,4.152,0,0,1,4.176-4.176,4.152,4.152,0,0,1,4.176,4.176,3.759,3.759,0,0,1-.209,1.241,5.446,5.446,0,0,1-.553,1.142l2.752,2.752a.754.754,0,0,1,.233.516.665.665,0,0,1-.209.516.741.741,0,0,1-1.056,0ZM17.179,20.96A2.71,2.71,0,0,0,19.1,16.342a2.71,2.71,0,0,0-3.832,3.832A2.608,2.608,0,0,0,17.179,20.96Zm-14.347-1.6a.687.687,0,0,1-.295-.467.772.772,0,0,1,.1-.54l3.71-5.921a.693.693,0,0,1,.577-.344.74.74,0,0,1,.626.246l2.285,2.678L13.15,9.659a.72.72,0,0,1,1.228-.025l2.039,3.022a4.655,4.655,0,0,0-.762.16q-.369.111-.737.258l-1.106-1.7L10.6,16.636a.693.693,0,0,1-.577.344.74.74,0,0,1-.626-.246l-2.309-2.7-3.194,5.11a.759.759,0,0,1-.479.344A.674.674,0,0,1,2.832,19.363ZM19,12.9a3.066,3.066,0,0,0-.762-.2l-.811-.1,4.84-7.616a.724.724,0,0,1,1.056-.2.733.733,0,0,1,.307.467.668.668,0,0,1-.111.54Z" transform="translate(6.475 5.355)" fill="#26292c" opacity="0.8" />
+                                        </g>
+                                      </svg>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">CHART VIEW</span>
+                                    </div>
+                                    <div class="group transition-all duration-300 ">
+                                      <div class="border border-opacity-0 bg-[#fafafa] border-transparent group-hover:border-opacity-100  group-hover:border-[#78DBB450] group-hover:shadow-sm group-hover:bg-white rounded-full p-2 w-10 h-10">
+                                        <svg width="20px" height="20px" viewBox="0 0 21 21" class="mx-auto" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" transform="translate(2 2)"><path d="m2.5.5h12.0269119c1.1045695 0 2 .8954305 2 2v11.9907459c0 1.0543618-.8158778 1.9181651-1.8507376 1.9945143l-.1588615.0054627-12.02691193-.0577246c-1.10080997-.0052835-1.99040087-.8991544-1.99040087-1.999977v-11.9330213c0-1.1045695.8954305-2 2-2z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="m.5 4.5h16.027" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="8.5" fill="currentColor" r="1"/></g></svg>
+                                      </div>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">DAILY VIEW</span>
+                                    </div>
+                                  </td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 17,468,004</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 23</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 71</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5  md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 16€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 18%</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 130€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2  px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 20%</td>
+                                </tr>
+                                <tr class="even:bg-[#f0f7f5] odd:bg-[#fafafa]">
+                                  <td class="max-w-[184px] md:pl-10 pl-5 pr-3 md:pt-7 md:pb-5 py-2 md:text-lg text-base font-bold text-black-100 opacity-70"> Account Name </td>
+                                  <td class="flex gap-x-5 items-center justify-center mt-[15px] md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                                    <div class="group transition-all duration-300">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto svg_round" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+                                        <defs>
+                                          <filter id="Rettangolo_2057" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+                                            <feOffset input="SourceAlpha" />
+                                            <feGaussianBlur stdDeviation="1" result="blur" />
+                                            <feFlood flood-color="#595c6d" flood-opacity="0.2" />
+                                            <feComposite operator="in" in2="blur" />
+                                            <feComposite in="SourceGraphic" />
+                                          </filter>
+                                        </defs>
+                                        <g id="chart_view_btn" data-name="chart view btn" transform="translate(3 3)">
+                                          <text id="Chart_View" data-name="Chart
+                                    View" transform="translate(20 18)" fill="#26292c" font-size="10" font-family="Montserrat-Bold, Montserrat" font-weight="700" opacity="0.8">
+                                            <tspan x="-18" y="0">CHART</tspan>
+                                            <tspan x="-14" y="12">VIEW</tspan>
+                                          </text>
+                                          <rect id="Rettangolo_2056" data-name="Rettangolo 2056" width="40" height="40" rx="20" fill="#fafafa" />
+                                          <g transform="matrix(1, 0, 0, 1, -3, -3)" filter="url(#Rettangolo_2057)">
+                                            <g id="Rettangolo_2057-2" data-name="Rettangolo 2057" transform="translate(3 3)" fill="#fff" stroke="rgba(35,133,94,0.2)" stroke-width="1" class="group-hover:opacity-100" opacity="0">
+                                              <rect width="40" height="40" rx="20" stroke="none" />
+                                              <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="none" />
+                                            </g>
+                                          </g>
+                                          <path id="query_stats_FILL0_wght400_GRAD0_opsz48" d="M22.314,24.424l-2.776-2.752a4.1,4.1,0,0,1-1.118.565,3.972,3.972,0,0,1-1.241.2A4.152,4.152,0,0,1,13,18.258a4.152,4.152,0,0,1,4.176-4.176,4.152,4.152,0,0,1,4.176,4.176,3.759,3.759,0,0,1-.209,1.241,5.446,5.446,0,0,1-.553,1.142l2.752,2.752a.754.754,0,0,1,.233.516.665.665,0,0,1-.209.516.741.741,0,0,1-1.056,0ZM17.179,20.96A2.71,2.71,0,0,0,19.1,16.342a2.71,2.71,0,0,0-3.832,3.832A2.608,2.608,0,0,0,17.179,20.96Zm-14.347-1.6a.687.687,0,0,1-.295-.467.772.772,0,0,1,.1-.54l3.71-5.921a.693.693,0,0,1,.577-.344.74.74,0,0,1,.626.246l2.285,2.678L13.15,9.659a.72.72,0,0,1,1.228-.025l2.039,3.022a4.655,4.655,0,0,0-.762.16q-.369.111-.737.258l-1.106-1.7L10.6,16.636a.693.693,0,0,1-.577.344.74.74,0,0,1-.626-.246l-2.309-2.7-3.194,5.11a.759.759,0,0,1-.479.344A.674.674,0,0,1,2.832,19.363ZM19,12.9a3.066,3.066,0,0,0-.762-.2l-.811-.1,4.84-7.616a.724.724,0,0,1,1.056-.2.733.733,0,0,1,.307.467.668.668,0,0,1-.111.54Z" transform="translate(6.475 5.355)" fill="#26292c" opacity="0.8" />
+                                        </g>
+                                      </svg>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">CHART VIEW</span>
+                                    </div>
+                                    <div class="group transition-all duration-300 ">
+                                      <div class="border border-opacity-0 bg-[#fafafa] border-transparent group-hover:border-opacity-100  group-hover:border-[#78DBB450] group-hover:shadow-sm group-hover:bg-white rounded-full p-2 w-10 h-10">
+                                        <svg width="20px" height="20px" viewBox="0 0 21 21" class="mx-auto" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" transform="translate(2 2)"><path d="m2.5.5h12.0269119c1.1045695 0 2 .8954305 2 2v11.9907459c0 1.0543618-.8158778 1.9181651-1.8507376 1.9945143l-.1588615.0054627-12.02691193-.0577246c-1.10080997-.0052835-1.99040087-.8991544-1.99040087-1.999977v-11.9330213c0-1.1045695.8954305-2 2-2z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="m.5 4.5h16.027" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="8.5" fill="currentColor" r="1"/></g></svg>
+                                      </div>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">DAILY VIEW</span>
+                                    </div>
+                                  </td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 17,468,004</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 23</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 71</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5  md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 16€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 18%</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 130€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2  px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 20%</td>
+                                </tr>
+                                <tr class="even:bg-[#f0f7f5] odd:bg-[#fafafa]">
+                                  <td class="max-w-[184px] md:pl-10 pl-5 pr-3 md:pt-7 md:pb-5 py-2 md:text-lg text-base font-bold text-black-100 opacity-70"> Account Name </td>
+                                  <td class="flex gap-x-5 items-center justify-center mt-[15px] md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                                    <div class="group transition-all duration-300">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto svg_round" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+                                        <defs>
+                                          <filter id="Rettangolo_2057" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+                                            <feOffset input="SourceAlpha" />
+                                            <feGaussianBlur stdDeviation="1" result="blur" />
+                                            <feFlood flood-color="#595c6d" flood-opacity="0.2" />
+                                            <feComposite operator="in" in2="blur" />
+                                            <feComposite in="SourceGraphic" />
+                                          </filter>
+                                        </defs>
+                                        <g id="chart_view_btn" data-name="chart view btn" transform="translate(3 3)">
+                                          <text id="Chart_View" data-name="Chart
+                                    View" transform="translate(20 18)" fill="#26292c" font-size="10" font-family="Montserrat-Bold, Montserrat" font-weight="700" opacity="0.8">
+                                            <tspan x="-18" y="0">CHART</tspan>
+                                            <tspan x="-14" y="12">VIEW</tspan>
+                                          </text>
+                                          <rect id="Rettangolo_2056" data-name="Rettangolo 2056" width="40" height="40" rx="20" fill="#fafafa" />
+                                          <g transform="matrix(1, 0, 0, 1, -3, -3)" filter="url(#Rettangolo_2057)">
+                                            <g id="Rettangolo_2057-2" data-name="Rettangolo 2057" transform="translate(3 3)" fill="#fff" stroke="rgba(35,133,94,0.2)" stroke-width="1" class="group-hover:opacity-100" opacity="0">
+                                              <rect width="40" height="40" rx="20" stroke="none" />
+                                              <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="none" />
+                                            </g>
+                                          </g>
+                                          <path id="query_stats_FILL0_wght400_GRAD0_opsz48" d="M22.314,24.424l-2.776-2.752a4.1,4.1,0,0,1-1.118.565,3.972,3.972,0,0,1-1.241.2A4.152,4.152,0,0,1,13,18.258a4.152,4.152,0,0,1,4.176-4.176,4.152,4.152,0,0,1,4.176,4.176,3.759,3.759,0,0,1-.209,1.241,5.446,5.446,0,0,1-.553,1.142l2.752,2.752a.754.754,0,0,1,.233.516.665.665,0,0,1-.209.516.741.741,0,0,1-1.056,0ZM17.179,20.96A2.71,2.71,0,0,0,19.1,16.342a2.71,2.71,0,0,0-3.832,3.832A2.608,2.608,0,0,0,17.179,20.96Zm-14.347-1.6a.687.687,0,0,1-.295-.467.772.772,0,0,1,.1-.54l3.71-5.921a.693.693,0,0,1,.577-.344.74.74,0,0,1,.626.246l2.285,2.678L13.15,9.659a.72.72,0,0,1,1.228-.025l2.039,3.022a4.655,4.655,0,0,0-.762.16q-.369.111-.737.258l-1.106-1.7L10.6,16.636a.693.693,0,0,1-.577.344.74.74,0,0,1-.626-.246l-2.309-2.7-3.194,5.11a.759.759,0,0,1-.479.344A.674.674,0,0,1,2.832,19.363ZM19,12.9a3.066,3.066,0,0,0-.762-.2l-.811-.1,4.84-7.616a.724.724,0,0,1,1.056-.2.733.733,0,0,1,.307.467.668.668,0,0,1-.111.54Z" transform="translate(6.475 5.355)" fill="#26292c" opacity="0.8" />
+                                        </g>
+                                      </svg>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">CHART VIEW</span>
+                                    </div>
+                                    <div class="group transition-all duration-300 ">
+                                      <div class="border border-opacity-0 bg-[#fafafa] border-transparent group-hover:border-opacity-100  group-hover:border-[#78DBB450] group-hover:shadow-sm group-hover:bg-white rounded-full p-2 w-10 h-10">
+                                        <svg width="20px" height="20px" viewBox="0 0 21 21" class="mx-auto" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" transform="translate(2 2)"><path d="m2.5.5h12.0269119c1.1045695 0 2 .8954305 2 2v11.9907459c0 1.0543618-.8158778 1.9181651-1.8507376 1.9945143l-.1588615.0054627-12.02691193-.0577246c-1.10080997-.0052835-1.99040087-.8991544-1.99040087-1.999977v-11.9330213c0-1.1045695.8954305-2 2-2z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="m.5 4.5h16.027" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="8.5" fill="currentColor" r="1"/></g></svg>
+                                      </div>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">DAILY VIEW</span>
+                                    </div>
+                                  </td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 17,468,004</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 23</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 71</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5  md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 16€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 18%</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 130€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2  px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 20%</td>
+                                </tr>
+                                <tr class="even:bg-[#f0f7f5] odd:bg-[#fafafa]">
+                                  <td class="max-w-[184px] md:pl-10 pl-5 pr-3 md:pt-7 md:pb-5 py-2 md:text-lg text-base font-bold text-black-100 opacity-70"> Account Name </td>
+                                  <td class="flex gap-x-5 items-center justify-center mt-[15px] md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                                    <div class="group transition-all duration-300">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto svg_round" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+                                        <defs>
+                                          <filter id="Rettangolo_2057" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+                                            <feOffset input="SourceAlpha" />
+                                            <feGaussianBlur stdDeviation="1" result="blur" />
+                                            <feFlood flood-color="#595c6d" flood-opacity="0.2" />
+                                            <feComposite operator="in" in2="blur" />
+                                            <feComposite in="SourceGraphic" />
+                                          </filter>
+                                        </defs>
+                                        <g id="chart_view_btn" data-name="chart view btn" transform="translate(3 3)">
+                                          <text id="Chart_View" data-name="Chart
+                                    View" transform="translate(20 18)" fill="#26292c" font-size="10" font-family="Montserrat-Bold, Montserrat" font-weight="700" opacity="0.8">
+                                            <tspan x="-18" y="0">CHART</tspan>
+                                            <tspan x="-14" y="12">VIEW</tspan>
+                                          </text>
+                                          <rect id="Rettangolo_2056" data-name="Rettangolo 2056" width="40" height="40" rx="20" fill="#fafafa" />
+                                          <g transform="matrix(1, 0, 0, 1, -3, -3)" filter="url(#Rettangolo_2057)">
+                                            <g id="Rettangolo_2057-2" data-name="Rettangolo 2057" transform="translate(3 3)" fill="#fff" stroke="rgba(35,133,94,0.2)" stroke-width="1" class="group-hover:opacity-100" opacity="0">
+                                              <rect width="40" height="40" rx="20" stroke="none" />
+                                              <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="none" />
+                                            </g>
+                                          </g>
+                                          <path id="query_stats_FILL0_wght400_GRAD0_opsz48" d="M22.314,24.424l-2.776-2.752a4.1,4.1,0,0,1-1.118.565,3.972,3.972,0,0,1-1.241.2A4.152,4.152,0,0,1,13,18.258a4.152,4.152,0,0,1,4.176-4.176,4.152,4.152,0,0,1,4.176,4.176,3.759,3.759,0,0,1-.209,1.241,5.446,5.446,0,0,1-.553,1.142l2.752,2.752a.754.754,0,0,1,.233.516.665.665,0,0,1-.209.516.741.741,0,0,1-1.056,0ZM17.179,20.96A2.71,2.71,0,0,0,19.1,16.342a2.71,2.71,0,0,0-3.832,3.832A2.608,2.608,0,0,0,17.179,20.96Zm-14.347-1.6a.687.687,0,0,1-.295-.467.772.772,0,0,1,.1-.54l3.71-5.921a.693.693,0,0,1,.577-.344.74.74,0,0,1,.626.246l2.285,2.678L13.15,9.659a.72.72,0,0,1,1.228-.025l2.039,3.022a4.655,4.655,0,0,0-.762.16q-.369.111-.737.258l-1.106-1.7L10.6,16.636a.693.693,0,0,1-.577.344.74.74,0,0,1-.626-.246l-2.309-2.7-3.194,5.11a.759.759,0,0,1-.479.344A.674.674,0,0,1,2.832,19.363ZM19,12.9a3.066,3.066,0,0,0-.762-.2l-.811-.1,4.84-7.616a.724.724,0,0,1,1.056-.2.733.733,0,0,1,.307.467.668.668,0,0,1-.111.54Z" transform="translate(6.475 5.355)" fill="#26292c" opacity="0.8" />
+                                        </g>
+                                      </svg>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">CHART VIEW</span>
+                                    </div>
+                                    <div class="group transition-all duration-300 ">
+                                      <div class="border border-opacity-0 bg-[#fafafa] border-transparent group-hover:border-opacity-100  group-hover:border-[#78DBB450] group-hover:shadow-sm group-hover:bg-white rounded-full p-2 w-10 h-10">
+                                        <svg width="20px" height="20px" viewBox="0 0 21 21" class="mx-auto" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" transform="translate(2 2)"><path d="m2.5.5h12.0269119c1.1045695 0 2 .8954305 2 2v11.9907459c0 1.0543618-.8158778 1.9181651-1.8507376 1.9945143l-.1588615.0054627-12.02691193-.0577246c-1.10080997-.0052835-1.99040087-.8991544-1.99040087-1.999977v-11.9330213c0-1.1045695.8954305-2 2-2z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="m.5 4.5h16.027" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="8.5" fill="currentColor" r="1"/></g></svg>
+                                      </div>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">DAILY VIEW</span>
+                                    </div>
+                                  </td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 17,468,004</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 23</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 71</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5  md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 16€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 18%</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 130€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2  px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 20%</td>
+                                </tr>
+                                <tr class="even:bg-[#f0f7f5] odd:bg-[#fafafa]">
+                                  <td class="max-w-[184px] md:pl-10 pl-5 pr-3 md:pt-7 md:pb-5 py-2 md:text-lg text-base font-bold text-black-100 opacity-70"> Account Name </td>
+                                  <td class="flex gap-x-5 items-center justify-center mt-[15px] md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                                    <div class="group transition-all duration-300">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto svg_round" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+                                        <defs>
+                                          <filter id="Rettangolo_2057" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+                                            <feOffset input="SourceAlpha" />
+                                            <feGaussianBlur stdDeviation="1" result="blur" />
+                                            <feFlood flood-color="#595c6d" flood-opacity="0.2" />
+                                            <feComposite operator="in" in2="blur" />
+                                            <feComposite in="SourceGraphic" />
+                                          </filter>
+                                        </defs>
+                                        <g id="chart_view_btn" data-name="chart view btn" transform="translate(3 3)">
+                                          <text id="Chart_View" data-name="Chart
+                                    View" transform="translate(20 18)" fill="#26292c" font-size="10" font-family="Montserrat-Bold, Montserrat" font-weight="700" opacity="0.8">
+                                            <tspan x="-18" y="0">CHART</tspan>
+                                            <tspan x="-14" y="12">VIEW</tspan>
+                                          </text>
+                                          <rect id="Rettangolo_2056" data-name="Rettangolo 2056" width="40" height="40" rx="20" fill="#fafafa" />
+                                          <g transform="matrix(1, 0, 0, 1, -3, -3)" filter="url(#Rettangolo_2057)">
+                                            <g id="Rettangolo_2057-2" data-name="Rettangolo 2057" transform="translate(3 3)" fill="#fff" stroke="rgba(35,133,94,0.2)" stroke-width="1" class="group-hover:opacity-100" opacity="0">
+                                              <rect width="40" height="40" rx="20" stroke="none" />
+                                              <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="none" />
+                                            </g>
+                                          </g>
+                                          <path id="query_stats_FILL0_wght400_GRAD0_opsz48" d="M22.314,24.424l-2.776-2.752a4.1,4.1,0,0,1-1.118.565,3.972,3.972,0,0,1-1.241.2A4.152,4.152,0,0,1,13,18.258a4.152,4.152,0,0,1,4.176-4.176,4.152,4.152,0,0,1,4.176,4.176,3.759,3.759,0,0,1-.209,1.241,5.446,5.446,0,0,1-.553,1.142l2.752,2.752a.754.754,0,0,1,.233.516.665.665,0,0,1-.209.516.741.741,0,0,1-1.056,0ZM17.179,20.96A2.71,2.71,0,0,0,19.1,16.342a2.71,2.71,0,0,0-3.832,3.832A2.608,2.608,0,0,0,17.179,20.96Zm-14.347-1.6a.687.687,0,0,1-.295-.467.772.772,0,0,1,.1-.54l3.71-5.921a.693.693,0,0,1,.577-.344.74.74,0,0,1,.626.246l2.285,2.678L13.15,9.659a.72.72,0,0,1,1.228-.025l2.039,3.022a4.655,4.655,0,0,0-.762.16q-.369.111-.737.258l-1.106-1.7L10.6,16.636a.693.693,0,0,1-.577.344.74.74,0,0,1-.626-.246l-2.309-2.7-3.194,5.11a.759.759,0,0,1-.479.344A.674.674,0,0,1,2.832,19.363ZM19,12.9a3.066,3.066,0,0,0-.762-.2l-.811-.1,4.84-7.616a.724.724,0,0,1,1.056-.2.733.733,0,0,1,.307.467.668.668,0,0,1-.111.54Z" transform="translate(6.475 5.355)" fill="#26292c" opacity="0.8" />
+                                        </g>
+                                      </svg>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">CHART VIEW</span>
+                                    </div>
+                                    <div class="group transition-all duration-300 ">
+                                      <div class="border border-opacity-0 bg-[#fafafa] border-transparent group-hover:border-opacity-100  group-hover:border-[#78DBB450] group-hover:shadow-sm group-hover:bg-white rounded-full p-2 w-10 h-10">
+                                        <svg width="20px" height="20px" viewBox="0 0 21 21" class="mx-auto" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" transform="translate(2 2)"><path d="m2.5.5h12.0269119c1.1045695 0 2 .8954305 2 2v11.9907459c0 1.0543618-.8158778 1.9181651-1.8507376 1.9945143l-.1588615.0054627-12.02691193-.0577246c-1.10080997-.0052835-1.99040087-.8991544-1.99040087-1.999977v-11.9330213c0-1.1045695.8954305-2 2-2z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="m.5 4.5h16.027" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="8.5" fill="currentColor" r="1"/></g></svg>
+                                      </div>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">DAILY VIEW</span>
+                                    </div>
+                                  </td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 17,468,004</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 23</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 71</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5  md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 16€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 18%</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 130€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2  px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 20%</td>
+                                </tr>
+                                <tr class="even:bg-[#f0f7f5] odd:bg-[#fafafa]">
+                                  <td class="max-w-[184px] md:pl-10 pl-5 pr-3 md:pt-7 md:pb-5 py-2 md:text-lg text-base font-bold text-black-100 opacity-70"> Account Name </td>
+                                  <td class="flex gap-x-5 items-center justify-center mt-[15px] md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                                    <div class="group transition-all duration-300">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto svg_round" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+                                        <defs>
+                                          <filter id="Rettangolo_2057" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+                                            <feOffset input="SourceAlpha" />
+                                            <feGaussianBlur stdDeviation="1" result="blur" />
+                                            <feFlood flood-color="#595c6d" flood-opacity="0.2" />
+                                            <feComposite operator="in" in2="blur" />
+                                            <feComposite in="SourceGraphic" />
+                                          </filter>
+                                        </defs>
+                                        <g id="chart_view_btn" data-name="chart view btn" transform="translate(3 3)">
+                                          <text id="Chart_View" data-name="Chart
+                                    View" transform="translate(20 18)" fill="#26292c" font-size="10" font-family="Montserrat-Bold, Montserrat" font-weight="700" opacity="0.8">
+                                            <tspan x="-18" y="0">CHART</tspan>
+                                            <tspan x="-14" y="12">VIEW</tspan>
+                                          </text>
+                                          <rect id="Rettangolo_2056" data-name="Rettangolo 2056" width="40" height="40" rx="20" fill="#fafafa" />
+                                          <g transform="matrix(1, 0, 0, 1, -3, -3)" filter="url(#Rettangolo_2057)">
+                                            <g id="Rettangolo_2057-2" data-name="Rettangolo 2057" transform="translate(3 3)" fill="#fff" stroke="rgba(35,133,94,0.2)" stroke-width="1" class="group-hover:opacity-100" opacity="0">
+                                              <rect width="40" height="40" rx="20" stroke="none" />
+                                              <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="none" />
+                                            </g>
+                                          </g>
+                                          <path id="query_stats_FILL0_wght400_GRAD0_opsz48" d="M22.314,24.424l-2.776-2.752a4.1,4.1,0,0,1-1.118.565,3.972,3.972,0,0,1-1.241.2A4.152,4.152,0,0,1,13,18.258a4.152,4.152,0,0,1,4.176-4.176,4.152,4.152,0,0,1,4.176,4.176,3.759,3.759,0,0,1-.209,1.241,5.446,5.446,0,0,1-.553,1.142l2.752,2.752a.754.754,0,0,1,.233.516.665.665,0,0,1-.209.516.741.741,0,0,1-1.056,0ZM17.179,20.96A2.71,2.71,0,0,0,19.1,16.342a2.71,2.71,0,0,0-3.832,3.832A2.608,2.608,0,0,0,17.179,20.96Zm-14.347-1.6a.687.687,0,0,1-.295-.467.772.772,0,0,1,.1-.54l3.71-5.921a.693.693,0,0,1,.577-.344.74.74,0,0,1,.626.246l2.285,2.678L13.15,9.659a.72.72,0,0,1,1.228-.025l2.039,3.022a4.655,4.655,0,0,0-.762.16q-.369.111-.737.258l-1.106-1.7L10.6,16.636a.693.693,0,0,1-.577.344.74.74,0,0,1-.626-.246l-2.309-2.7-3.194,5.11a.759.759,0,0,1-.479.344A.674.674,0,0,1,2.832,19.363ZM19,12.9a3.066,3.066,0,0,0-.762-.2l-.811-.1,4.84-7.616a.724.724,0,0,1,1.056-.2.733.733,0,0,1,.307.467.668.668,0,0,1-.111.54Z" transform="translate(6.475 5.355)" fill="#26292c" opacity="0.8" />
+                                        </g>
+                                      </svg>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">CHART VIEW</span>
+                                    </div>
+                                    <div class="group transition-all duration-300 ">
+                                      <div class="border border-opacity-0 bg-[#fafafa] border-transparent group-hover:border-opacity-100  group-hover:border-[#78DBB450] group-hover:shadow-sm group-hover:bg-white rounded-full p-2 w-10 h-10">
+                                        <svg width="20px" height="20px" viewBox="0 0 21 21" class="mx-auto" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" transform="translate(2 2)"><path d="m2.5.5h12.0269119c1.1045695 0 2 .8954305 2 2v11.9907459c0 1.0543618-.8158778 1.9181651-1.8507376 1.9945143l-.1588615.0054627-12.02691193-.0577246c-1.10080997-.0052835-1.99040087-.8991544-1.99040087-1.999977v-11.9330213c0-1.1045695.8954305-2 2-2z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="m.5 4.5h16.027" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="8.5" fill="currentColor" r="1"/></g></svg>
+                                      </div>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">DAILY VIEW</span>
+                                    </div>
+                                  </td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 17,468,004</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 23</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 71</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5  md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 16€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 18%</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 130€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2  px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 20%</td>
+                                </tr>
+                                <tr class="even:bg-[#f0f7f5] odd:bg-[#fafafa]">
+                                  <td class="max-w-[184px] md:pl-10 pl-5 pr-3 md:pt-7 md:pb-5 py-2 md:text-lg text-base font-bold text-black-100 opacity-70"> Account Name </td>
+                                  <td class="flex gap-x-5 items-center justify-center mt-[15px] md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center">
+                                    <div class="group transition-all duration-300">
+                                      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto svg_round" xmlns:xlink="http://www.w3.org/1999/xlink" width="46" height="46" viewBox="0 0 46 46">
+                                        <defs>
+                                          <filter id="Rettangolo_2057" x="0" y="0" width="46" height="46" filterUnits="userSpaceOnUse">
+                                            <feOffset input="SourceAlpha" />
+                                            <feGaussianBlur stdDeviation="1" result="blur" />
+                                            <feFlood flood-color="#595c6d" flood-opacity="0.2" />
+                                            <feComposite operator="in" in2="blur" />
+                                            <feComposite in="SourceGraphic" />
+                                          </filter>
+                                        </defs>
+                                        <g id="chart_view_btn" data-name="chart view btn" transform="translate(3 3)">
+                                          <text id="Chart_View" data-name="Chart
+                                    View" transform="translate(20 18)" fill="#26292c" font-size="10" font-family="Montserrat-Bold, Montserrat" font-weight="700" opacity="0.8">
+                                            <tspan x="-18" y="0">CHART</tspan>
+                                            <tspan x="-14" y="12">VIEW</tspan>
+                                          </text>
+                                          <rect id="Rettangolo_2056" data-name="Rettangolo 2056" width="40" height="40" rx="20" fill="#fafafa" />
+                                          <g transform="matrix(1, 0, 0, 1, -3, -3)" filter="url(#Rettangolo_2057)">
+                                            <g id="Rettangolo_2057-2" data-name="Rettangolo 2057" transform="translate(3 3)" fill="#fff" stroke="rgba(35,133,94,0.2)" stroke-width="1" class="group-hover:opacity-100" opacity="0">
+                                              <rect width="40" height="40" rx="20" stroke="none" />
+                                              <rect x="0.5" y="0.5" width="39" height="39" rx="19.5" fill="none" />
+                                            </g>
+                                          </g>
+                                          <path id="query_stats_FILL0_wght400_GRAD0_opsz48" d="M22.314,24.424l-2.776-2.752a4.1,4.1,0,0,1-1.118.565,3.972,3.972,0,0,1-1.241.2A4.152,4.152,0,0,1,13,18.258a4.152,4.152,0,0,1,4.176-4.176,4.152,4.152,0,0,1,4.176,4.176,3.759,3.759,0,0,1-.209,1.241,5.446,5.446,0,0,1-.553,1.142l2.752,2.752a.754.754,0,0,1,.233.516.665.665,0,0,1-.209.516.741.741,0,0,1-1.056,0ZM17.179,20.96A2.71,2.71,0,0,0,19.1,16.342a2.71,2.71,0,0,0-3.832,3.832A2.608,2.608,0,0,0,17.179,20.96Zm-14.347-1.6a.687.687,0,0,1-.295-.467.772.772,0,0,1,.1-.54l3.71-5.921a.693.693,0,0,1,.577-.344.74.74,0,0,1,.626.246l2.285,2.678L13.15,9.659a.72.72,0,0,1,1.228-.025l2.039,3.022a4.655,4.655,0,0,0-.762.16q-.369.111-.737.258l-1.106-1.7L10.6,16.636a.693.693,0,0,1-.577.344.74.74,0,0,1-.626-.246l-2.309-2.7-3.194,5.11a.759.759,0,0,1-.479.344A.674.674,0,0,1,2.832,19.363ZM19,12.9a3.066,3.066,0,0,0-.762-.2l-.811-.1,4.84-7.616a.724.724,0,0,1,1.056-.2.733.733,0,0,1,.307.467.668.668,0,0,1-.111.54Z" transform="translate(6.475 5.355)" fill="#26292c" opacity="0.8" />
+                                        </g>
+                                      </svg>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">CHART VIEW</span>
+                                    </div>
+                                    <div class="group transition-all duration-300 ">
+                                      <div class="border border-opacity-0 bg-[#fafafa] border-transparent group-hover:border-opacity-100  group-hover:border-[#78DBB450] group-hover:shadow-sm group-hover:bg-white rounded-full p-2 w-10 h-10">
+                                        <svg width="20px" height="20px" viewBox="0 0 21 21" class="mx-auto" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" transform="translate(2 2)"><path d="m2.5.5h12.0269119c1.1045695 0 2 .8954305 2 2v11.9907459c0 1.0543618-.8158778 1.9181651-1.8507376 1.9945143l-.1588615.0054627-12.02691193-.0577246c-1.10080997-.0052835-1.99040087-.8991544-1.99040087-1.999977v-11.9330213c0-1.1045695.8954305-2 2-2z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><path d="m.5 4.5h16.027" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4.5" cy="8.5" fill="currentColor" r="1"/></g></svg>
+                                      </div>
+                                      <span class="group-hover:opacity-100 font-bold opacity-0 text-xs transition-all duration-300 -ml-[14px]">DAILY VIEW</span>
+                                    </div>
+                                  </td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 17,468,004</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 23</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 71</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5  md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 16€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 18%</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2 px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 130€</td>
+                                  <td class="whitespace-nowrap md:pt-7 md:pb-5 py-2  px-5 md:text-[15px] text-sm font-semibold text-black-100 opacity-70 text-center"> 20%</td>
+                                </tr>
+                              </div>
+                            </tbody>
+                          </table>
+                          <!-- table end -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>      
+    </div>
+    <!-- sidebar -->
+    <footer>
+      <script src="https://unpkg.com/@popperjs/core@2"></script>
+      <script src="https://unpkg.com/tippy.js@6"></script>
+      <script>
+        document.addEventListener("alpine:init", () => {
+          Alpine.magic("tooltip", (el) => (message) => {
+            let instance = tippy(el, {
+              content: message,
+              trigger: "manual"
+            });
+            instance.show();
+            setTimeout(() => {
+              instance.hide();
+              setTimeout(() => instance.destroy(), 150);
+            }, 2000);
+          });
+          Alpine.directive("tooltip", (el, {
+            expression
+          }) => {
+            tippy(el, {
+              content: expression
+            });
+          });
+        });
+      </script>
+    </footer>
+  </body>
+</html>

@@ -5,3 +5,20 @@
 html {
   scroll-behavior: smooth;
 }
+.select_sidebar{
+  background-image: none;
+  padding-right: 8px;
+}
+.account_table::-webkit-scrollbar {
+  width: 3px;
+}
+ 
+/* Handle */
+.account_table::-webkit-scrollbar-thumb {
+  background: #cdcdcd; 
+}
+
+/* Handle on hover */
+.account_table::-webkit-scrollbar-thumb:hover {
+  background: #cdcdcd; 
+}
